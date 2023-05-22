@@ -54,17 +54,14 @@ function CalendarView() {
       })
       .then((data) => {
         // 서버에서 반환한 데이터 처리
+        console.log(data.title);
+        console.log(data.date);
         console.log(data.message); // "서버로 부터 받은 게시물이 추가되었습니다. 메시지"
       })
       .catch((error) => {
         console.error("게시물 추가 중 오류가 발생했습니다.", error);
       });
   };
-
-  // 업데이트된 게시물을 콘솔에 출력
-  useEffect(() => {
-    console.log(posts);
-  }, [posts]);
 
   const markedDates = posts.reduce((acc, current) => {
     const formattedDate = format(new Date(current.date), "yyyy-MM-dd");
