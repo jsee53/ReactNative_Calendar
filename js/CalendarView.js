@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { View, Button } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { format } from "date-fns";
-import { StyleSheet } from "react-native";
+import Schedule from "./Schedule";
 
 function CalendarView() {
   const [newPostTitle, setNewPostTitle] = useState(""); //사용자가 입력한 일정의 제목
@@ -11,6 +11,7 @@ function CalendarView() {
     format(new Date(), "yyyy-MM-dd")
   );
   const [posts, setPosts] = useState([]);
+  const [showSchedule, setShowSchedule] = useState(false);
 
   //게시물 추가
   const addPost = () => {
@@ -21,7 +22,7 @@ function CalendarView() {
     }
 
     if (!/^\d{4}-\d{2}-\d{2}$/.test(newPostDate)) {
-      alert("올바른 날짜 형식을 입력하세요. (yyyy-MM-dd)");
+      alert("올바른 날짜 형식을 입력하세요. (1999-05-03)");
       return;
     }
 
@@ -96,13 +97,12 @@ function CalendarView() {
         />
         <input
           type="text"
-          placeholder="날짜 (yyyy-MM-dd)"
+          placeholder="날짜 (1999-05-03)"
           value={newPostDate}
           onChange={(e) => setNewPostDate(e.target.value)}
         />
         <button onClick={addPost}>게시물 추가</button>
       </div>
-
       <Calendar
         style={{
           marginTop: 20,
@@ -123,6 +123,7 @@ function CalendarView() {
         //날짜 선택시 실행될 함수
         onDayPress={(day) => {
           setSelectedDate(day.dateString); //선택한 날짜를 selectedDate에 저장
+          setShowSchedule(true); //선택한 날짜의 Schedule 컴포넌트를 보여줌
         }}
         monthFormat={"yyyy년 MM월"}
         // 기본 화살표를 커스텀화살표로 대체 (방향은 '왼쪽'이나 '오른쪽')
@@ -132,6 +133,14 @@ function CalendarView() {
         // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
         hideExtraDays={true}
       />
+      <div>
+        {showSchedule === true ? ( //날짜 선택시 보여줄 Schedule 컴포넌트
+          <div>
+            <Schedule date={selectedDate} />
+            <button onClick={() => setShowSchedule(false)}>닫기</button>
+          </div>
+        ) : null}
+      </div>
     </View>
   );
 }
