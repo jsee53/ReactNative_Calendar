@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-const Login = () => {
+const Login = ({ successLogin, signup_show }) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,17 +33,17 @@ const Login = () => {
           return response.json(); // JSON 형식으로 변환된 응답 반환
         } else {
           // 요청이 실패한 경우
-          console.error("로그인이 실패했습니다.");
+          alert("로그인이 실패했습니다.");
         }
       })
       .then((data) => {
         // 서버에서 반환한 데이터 처리
-        console.log(data.id);
-        console.log(data.password);
-        console.log(data.message);
+        if (data.successLogin) {
+          successLogin(data.schedule_data);
+        }
       })
       .catch((error) => {
-        console.error("로그인 중 오류가 발생했습니다.", error);
+        alert("로그인 중 오류가 발생했습니다.", error);
       });
   };
 
@@ -68,7 +68,9 @@ const Login = () => {
           <Text style={styles.buttonText}>로그인</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>회원가입</Text>
+          <Text style={styles.buttonText} onPress={signup_show}>
+            회원가입
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -78,18 +80,22 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     paddingHorizontal: 20,
-    backgroundColor: "#F5FCFF",
+    paddingTop: 50, // 추가된 스타일
   },
   title: {
     fontSize: 40,
     fontWeight: "600",
     marginBottom: 20,
   },
+  inputContainer: {
+    alignItems: "center",
+    marginBottom: 10,
+  },
   input: {
-    width: "160",
+    width: 160, // 수정된 스타일
     height: 25,
     borderWidth: 1,
     borderColor: "#ccc",
@@ -103,9 +109,9 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   button: {
-    width: "77",
+    width: 77,
     height: 27,
-    backgroundColor: "blue",
+    backgroundColor: "#004898",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,

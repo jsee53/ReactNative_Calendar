@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-const Signup = () => {
+const Signup = ({ successLogin, signup_show }) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -39,20 +39,22 @@ const Signup = () => {
           return response.json(); // JSON 형식으로 변환된 응답 반환
         } else {
           // 요청이 실패한 경우
-          console.error("회원가입이 실패했습니다.");
+          alert("회원가입이 실패했습니다.");
         }
       })
       .then((data) => {
         // 서버에서 반환한 데이터 처리
-        console.log(data.id);
-        console.log(data.password);
-        console.log(data.name);
-        console.log(data.birthDate);
-        console.log(data.email);
-        console.log(data.message);
+        if (data.successSignup) {
+          //회원가입 성공 시 ClanedarView 페이지로 이동
+          alert("회원가입 성공!");
+          successLogin();
+        } else {
+          //회원가입 실패 시
+          alert("회원가입 실패!");
+        }
       })
       .catch((error) => {
-        console.error("회원가입 중 오류가 발생했습니다.", error);
+        alert("회원가입 중 오류가 발생했습니다.", error);
       });
   };
 
@@ -92,7 +94,9 @@ const Signup = () => {
       />
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>취소</Text>
+          <Text style={styles.buttonText} onPress={signup_show}>
+            취소
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleSignup}>
           <Text style={styles.buttonText}>회원가입</Text>
@@ -108,7 +112,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
-    backgroundColor: "#F5FCFF",
   },
   title: {
     fontSize: 40,
@@ -132,7 +135,7 @@ const styles = StyleSheet.create({
   button: {
     width: "77",
     height: 27,
-    backgroundColor: "blue",
+    backgroundColor: "#004898",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
