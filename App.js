@@ -4,7 +4,6 @@ import Bar from "./js/Bar";
 import Login from "./js/Login";
 import CalendarView from "./js/CalendarView";
 import Signup from "./js/Signup";
-import Schedule from "./js/Schedule";
 
 const App = () => {
   const [login, setLogin] = useState(false);

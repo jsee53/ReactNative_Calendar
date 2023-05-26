@@ -44,7 +44,40 @@ function Schedule({ date }) {
   }, []); // 빈 배열을 두 번째 인자로 전달하여 컴포넌트가 마운트될 때만 실행되도록 설정
 
   const getRandomColor = () => {
-    const colors = ["red", "blue", "green", "yellow"];
+    const colors = [
+      "red",
+      "blue",
+      "green",
+      "yellow",
+      "orange",
+      "purple",
+      "pink",
+      "teal",
+      "brown",
+      "cyan",
+      "magenta",
+      "lime",
+      "indigo",
+      "salmon",
+      "turquoise",
+      "coral",
+      "violet",
+      "peach",
+      "gold",
+      "olive",
+      // Add more eye-catching colors here
+      "crimson",
+      "chartreuse",
+      "orchid",
+      "aqua",
+      "tomato",
+      "deepskyblue",
+      "hotpink",
+      "limegreen",
+      "royalblue",
+      "sandybrown",
+    ];
+
     const randomIndex = random(0, colors.length - 1);
     return colors[randomIndex];
   };

@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
-import { View, Button } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { format } from "date-fns";
 import Schedule from "./Schedule";
@@ -9,12 +9,16 @@ function CalendarView() {
   const [selectedDate, setSelectedDate] = useState(
     format(new Date(), "yyyy-MM-dd")
   );
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState([
+    "2023-05-23",
+    "2023-05-23",
+    "2023-05-24",
+  ]);
+
   const [showSchedule, setShowSchedule] = useState(false);
 
   const markedDates = posts.reduce((acc, current) => {
-    const formattedDate = format(new Date(current.date), "yyyy-MM-dd");
-    acc[formattedDate] = { marked: true };
+    acc[current] = { marked: true };
     return acc;
   }, {});
 
