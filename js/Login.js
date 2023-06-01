@@ -38,8 +38,12 @@ const Login = ({ successLogin, signup_show }) => {
       })
       .then((data) => {
         // 서버에서 반환한 데이터 처리
-        if (data.successLogin) {
+        if (data.login_result) {
+          alert("로그인 성공!");
+          console.log("user_key:", data.user_key);
           successLogin(data.schedule_data);
+        } else {
+          alert("아이디 또는 비밀먼호 오류!!");
         }
       })
       .catch((error) => {
