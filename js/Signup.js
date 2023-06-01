@@ -60,7 +60,7 @@ const Signup = ({ successLogin, signup_show }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>회원가입</Text>
+      <Text style={styles.title}>Join</Text>
       <TextInput
         style={styles.input}
         placeholder="ID"
@@ -76,19 +76,19 @@ const Signup = ({ successLogin, signup_show }) => {
       />
       <TextInput
         style={styles.input}
-        placeholder="이름"
+        placeholder="Name"
         onChangeText={(text) => setName(text)}
         value={name}
       />
       <TextInput
         style={styles.input}
-        placeholder="생년월일 ex) 19980917"
+        placeholder="Birthday ex) 19980917"
         onChangeText={(text) => setBirthDate(text)}
         value={birthDate}
       />
       <TextInput
         style={styles.input}
-        placeholder="이메일"
+        placeholder="Email"
         onChangeText={(text) => setEmail(text)}
         value={email}
       />
@@ -99,7 +99,7 @@ const Signup = ({ successLogin, signup_show }) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleSignup}>
-          <Text style={styles.buttonText}>회원가입</Text>
+          <Text style={styles.buttonText}>확인</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
   input: {
     width: "160",
     height: 25,
+    color: "#bbbbbb",
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 4,

@@ -49,7 +49,7 @@ const Login = ({ successLogin, signup_show }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>로그인</Text>
+      <Text style={styles.title}>AuViS</Text>
       <TextInput
         style={styles.input}
         placeholder="ID"
@@ -64,13 +64,11 @@ const Login = ({ successLogin, signup_show }) => {
         value={password}
       />
       <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText} onPress={signup_show}>회원가입</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>로그인</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText} onPress={signup_show}>
-            회원가입
-          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -97,8 +95,9 @@ const styles = StyleSheet.create({
   input: {
     width: 160, // 수정된 스타일
     height: 25,
+    color: "#bbbbbb",
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#004898",
     borderRadius: 4,
     paddingHorizontal: 10,
     marginBottom: 10,
