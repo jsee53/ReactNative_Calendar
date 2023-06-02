@@ -65,13 +65,13 @@ function CalendarView() {
         // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
         hideExtraDays={true}
       />
-      <div>
+      <view>
         <Schedule
           isVisible={isVisible}
           showModal={showModal}
           selectedDate={selectedDate}
         />
-      </div>
+      </view>
       <BottomBar />
     </View>
   );
