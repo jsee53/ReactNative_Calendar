@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { format } from "date-fns";
 import Schedule from "./Schedule";
@@ -15,7 +15,10 @@ function CalendarView() {
     "2023-05-24",
   ]);
 
-  const [showSchedule, setShowSchedule] = useState(false);
+  const [isVisible, setIsVisible] = useState(false); //날짜 클릭시 일정 모달 창 보여주기
+  const showModal = () => {
+    setIsVisible(!isVisible);
+  };
 
   const markedDates = posts.reduce((acc, current) => {
     acc[current] = { marked: true };
@@ -37,8 +40,8 @@ function CalendarView() {
       <Calendar
         style={{
           marginTop: 20,
-          height: 350,
-          width: 300,
+          height: 600,
+          width: 393,
         }}
         markedDates={markedSelectedDates}
         theme={{
@@ -52,7 +55,7 @@ function CalendarView() {
         //날짜 선택시 실행될 함수
         onDayPress={(day) => {
           setSelectedDate(day.dateString); //선택한 날짜를 selectedDate에 저장
-          setShowSchedule(true); //선택한 날짜의 Schedule 컴포넌트를 보여줌
+          setIsVisible(true); //선택한 날짜의 Schedule 컴포넌트를 보여줌
         }}
         monthFormat={"yyyy년 MM월"}
         // 기본 화살표를 커스텀화살표로 대체 (방향은 '왼쪽'이나 '오른쪽')
@@ -63,9 +66,11 @@ function CalendarView() {
         hideExtraDays={true}
       />
       <div>
-        {showSchedule === true ? ( //날짜 선택시 보여줄 Schedule 컴포넌트
-          <Schedule date={selectedDate} />
-        ) : null}
+        <Schedule
+          isVisible={isVisible}
+          showModal={showModal}
+          selectedDate={selectedDate}
+        />
       </div>
       <BottomBar />
     </View>
