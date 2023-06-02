@@ -6,7 +6,7 @@ import CalendarView from "./js/CalendarView";
 import Signup from "./js/Signup";
 
 const App = () => {
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
   const [signup, setsignup] = useState(false);
 
   //로그인 성공 여부 확인

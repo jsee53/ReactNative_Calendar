@@ -52,9 +52,6 @@ const Signup = ({ successLogin, signup_show }) => {
           //회원가입 실패 시
           alert("회원가입 실패!");
         }
-      })
-      .catch((error) => {
-        alert("회원가입 중 오류가 발생했습니다.", error);
       });
   };
 

@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
     height: 60,
-    width: 300,
+    width: 393,
     backgroundColor: "#004898", // 하단바 배경색
   },
   leftContainer: {
