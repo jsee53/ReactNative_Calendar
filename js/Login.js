@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 const Login = ({ successLogin, signup_show }) => {
-  const [id, setId] = useState("");
+  const [id, setId] = useState();
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
@@ -41,7 +41,7 @@ const Login = ({ successLogin, signup_show }) => {
         if (data.login_result) {
           successLogin(data.schedule_data);
         } else {
-          alert("아이디 또는 비밀먼호 오류!!");
+          alert("아이디 또는 비밀번호 오류!!");
         }
       });
   };

@@ -34,7 +34,6 @@ function AddPost({ isAddPostVisible, showAddPostModal, selectedDate }) {
     fetch("http://127.0.0.1:8000/addpost", postData).then((response) => {
       if (response.ok) {
         // 요청이 성공한 경우
-        alert("일정 추가 성공!");
         return response.json(); // JSON 형식으로 변환된 응답 반환
       } else {
         // 요청이 실패한 경우

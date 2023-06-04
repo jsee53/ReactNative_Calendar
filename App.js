@@ -8,6 +8,7 @@ import Signup from "./js/Signup";
 const App = () => {
   const [login, setLogin] = useState(true);
   const [signup, setsignup] = useState(false);
+  const [id_key, setId_key] = useState("");
 
   //로그인 성공 여부 확인
   const successLogin = (data) => {
