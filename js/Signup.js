@@ -90,10 +90,8 @@ const Signup = ({ successLogin, signup_show }) => {
         value={email}
       />
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText} onPress={signup_show}>
-            취소
-          </Text>
+        <TouchableOpacity style={styles.button} onPress={signup_show}>
+          <Text style={styles.buttonText}>취소</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleSignup}>
           <Text style={styles.buttonText}>확인</Text>
@@ -106,9 +104,10 @@ const Signup = ({ successLogin, signup_show }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     paddingHorizontal: 20,
+    paddingTop: 300, // 추가된 스타일
   },
   title: {
     fontSize: 40,
@@ -116,28 +115,27 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    width: "160",
-    height: 25,
+    width: 170,
+    height: 30,
     color: "#bbbbbb",
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#004898",
     borderRadius: 4,
     paddingHorizontal: 10,
     marginBottom: 10,
   },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
   },
   button: {
-    width: "77",
-    height: 27,
+    width: 77,
+    height: 30,
     backgroundColor: "#004898",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
     marginTop: 20,
+    marginHorizontal: 10,
   },
   buttonText: {
     color: "white",

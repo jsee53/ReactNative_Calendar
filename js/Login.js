@@ -41,7 +41,7 @@ const Login = ({ successLogin, signup_show }) => {
         if (data.login_result) {
           successLogin(data.schedule_data);
         } else {
-          alert("아이디 또는 비밀먼호 오류!!");
+          alert("아이디 또는 비밀번호 오류!!");
         }
       });
   };
@@ -63,8 +63,8 @@ const Login = ({ successLogin, signup_show }) => {
         value={password}
       />
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText} onPress={signup_show}>회원가입</Text>
+        <TouchableOpacity style={styles.button} onPress={signup_show}>
+          <Text style={styles.buttonText}>회원가입</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>로그인</Text>
@@ -80,20 +80,21 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 50, // 추가된 스타일
+    paddingTop: 300, // 추가된 스타일
   },
   title: {
     fontSize: 40,
     fontWeight: "600",
     marginBottom: 20,
+    color: "black",
   },
   inputContainer: {
     alignItems: "center",
     marginBottom: 10,
   },
   input: {
-    width: 160, // 수정된 스타일
-    height: 25,
+    width: 170, // 수정된 스타일
+    height: 30,
     color: "#bbbbbb",
     borderWidth: 1,
     borderColor: "#004898",
@@ -103,17 +104,16 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
   },
   button: {
     width: 77,
-    height: 27,
+    height: 30,
     backgroundColor: "#004898",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
     marginTop: 20,
+    marginHorizontal: 10,
   },
   buttonText: {
     color: "white",

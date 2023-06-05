@@ -1,12 +1,12 @@
+import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
-import Bar from "./js/Bar";
 import Login from "./js/Login";
 import CalendarView from "./js/CalendarView";
 import Signup from "./js/Signup";
 
 const App = () => {
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
   const [signup, setsignup] = useState(false);
 
   //로그인 성공 여부 확인
@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <View>
-      <Bar />
+      <StatusBar style="auto" />
       {login ? (
         <CalendarView />
       ) : signup ? (

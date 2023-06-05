@@ -4,6 +4,8 @@ import { Calendar } from "react-native-calendars";
 import { format } from "date-fns";
 import Schedule from "./Schedule";
 import BottomBar from "./BottomBar";
+import Bar from "./Bar";
+import BatchedBridge from "react-native/Libraries/BatchedBridge/BatchedBridge";
 
 function CalendarView() {
   const [selectedDate, setSelectedDate] = useState(
@@ -37,6 +39,7 @@ function CalendarView() {
 
   return (
     <View>
+      <Bar />
       <Calendar
         style={{
           marginTop: 20,
