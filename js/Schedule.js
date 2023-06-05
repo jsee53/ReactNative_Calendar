@@ -103,8 +103,8 @@ function Schedule({ isVisible, showModal, selectedDate }) {
           {scheduleTitle.length === 0 ? (
             <Text>일정이 없습니다.</Text>
           ) : (
-            scheduleTitle.map((scheduleItem) => (
-              <Text key={scheduleItem.id}>
+            scheduleTitle.map((scheduleItem, index) => (
+              <Text key={index}>
                 <Icon name="circle" size={16} color={getRandomColor()} />
                 {scheduleItem.title}
               </Text>
@@ -118,6 +118,7 @@ function Schedule({ isVisible, showModal, selectedDate }) {
           </TouchableOpacity>
           <AddPost
             isAddPostVisible={isAddPostVisible}
+            showModal={showModal}
             showAddPostModal={showAddPostModal}
             selectedDate={selectedDate}
           />

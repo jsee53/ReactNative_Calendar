@@ -6,10 +6,14 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { Provider, useSelector, useDispatch } from "react-redux";
+import store, { setIdKey } from "./Store";
 
 const Login = ({ successLogin, signup_show }) => {
-  const [id, setId] = useState();
+  const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
 
   const handleLogin = () => {
     const userData = {
@@ -33,13 +37,14 @@ const Login = ({ successLogin, signup_show }) => {
           return response.json(); // JSON 형식으로 변환된 응답 반환
         } else {
           // 요청이 실패한 경우
-          alert("로그인이 실패했습니다.");
+          alert("로그인이 실패!");
         }
       })
       .then((data) => {
         // 서버에서 반환한 데이터 처리
         if (data.login_result) {
-          successLogin(data.schedule_data);
+          successLogin(data.login_result);
+          dispatch(setIdKey(data.id_key)); //로그인 한 사용자의 id_key 값을 저장
         } else {
           alert("아이디 또는 비밀번호 오류!!");
         }

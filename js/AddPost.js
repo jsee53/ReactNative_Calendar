@@ -11,7 +11,12 @@ import { format } from "date-fns";
 import ko from "date-fns/locale/ko";
 
 //일정 추가 모달 컴포넌트
-function AddPost({ isAddPostVisible, showAddPostModal, selectedDate }) {
+function AddPost({
+  isAddPostVisible,
+  showModal,
+  showAddPostModal,
+  selectedDate,
+}) {
   const [postTitle, setPostTitle] = useState(""); // 일정 제목 상태 관리
   const [postDate, setPostDate] = useState(selectedDate); // 일정 날짜 상태 관리
 
@@ -42,7 +47,8 @@ function AddPost({ isAddPostVisible, showAddPostModal, selectedDate }) {
     });
 
     // 전송 후 모달 창 닫음
-    showAddPostModal("");
+    showAddPostModal();
+    showModal();
   };
 
   return (
@@ -54,7 +60,12 @@ function AddPost({ isAddPostVisible, showAddPostModal, selectedDate }) {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <TouchableOpacity onPress={showAddPostModal}>
+          <TouchableOpacity
+            onPress={() => {
+              showModal();
+              showAddPostModal();
+            }}
+          >
             <Text>X</Text>
           </TouchableOpacity>
           <Text>
