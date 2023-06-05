@@ -3,7 +3,7 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 // 리덕스 슬라이스 정의
 const idKeySlice = createSlice({
   name: "idKey",
-  initialState: 0, // 초기 id_key 값
+  initialState: 1, // 초기 id_key 값
   reducers: {
     setIdKey: (state, action) => {
       return action.payload;

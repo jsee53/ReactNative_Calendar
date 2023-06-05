@@ -46,7 +46,7 @@ function CalendarView() {
           setScheduleData(data.schedule_data.map((date) => date.split("T")[0]));
         })
         .catch((error) => {
-          console.error("Error fetching schedule data:", error);
+          console.error("일정 불러오기 오류!", error);
         });
     };
 
