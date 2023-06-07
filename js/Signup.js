@@ -13,6 +13,41 @@ const Signup = ({ successLogin, signup_show }) => {
   const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [email, setEmail] = useState("");
+  const [isIdInputEmpty, setIdInputEmpty] = useState(true); // 추가된 코드
+  const [isPasswordInputEmpty, setPasswordInputEmpty] = useState(true); // 추가된 코드
+  const [isNameInputEmpty, setNameInputEmpty] = useState(true); // 추가된 코드
+  const [isBirthDateInputEmpty, setBirthDateInputEmpty] = useState(true); // 추가된 코드
+  const [isEmailInputEmpty, setEmailInputEmpty] = useState(true); // 추가된 코드
+
+  const handleIdChange = (text) => {
+    // 추가된 코드
+    setId(text);
+    setIdInputEmpty(text.length === 0);
+  };
+
+  const handlePasswordChange = (text) => {
+    // 추가된 코드
+    setPassword(text);
+    setPasswordInputEmpty(text.length === 0);
+  };
+
+  const handleNameChange = (text) => {
+    // 추가된 코드
+    setName(text);
+    setNameInputEmpty(text.length === 0);
+  };
+
+  const handleBirthDateChange = (text) => {
+    // 추가된 코드
+    setBirthDate(text);
+    setBirthDateInputEmpty(text.length === 0);
+  };
+
+  const handleEmailChange = (text) => {
+    // 추가된 코드
+    setEmail(text);
+    setEmailInputEmpty(text.length === 0);
+  };
 
   const handleSignup = () => {
     const userData = {
@@ -62,34 +97,40 @@ const Signup = ({ successLogin, signup_show }) => {
       {/* </View>
       <View style={styles.inputcontainer}> */}
       <TextInput
-        style={styles.input}
+        style={[styles.input, isIdInputEmpty ? styles.empty : styles.filled]} // 변경된 코드
         placeholder="ID"
-        onChangeText={(text) => setId(text)}
+        onChangeText={handleIdChange}
         value={id}
       />
       <TextInput
-        style={styles.input}
+        style={[
+          styles.input,
+          isPasswordInputEmpty ? styles.empty : styles.filled,
+        ]} // 변경된 코드
         placeholder="PW"
         secureTextEntry
-        onChangeText={(text) => setPassword(text)}
+        onChangeText={handlePasswordChange}
         value={password}
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, isNameInputEmpty ? styles.empty : styles.filled]} // 변경된 코드
         placeholder="Name"
-        onChangeText={(text) => setName(text)}
+        onChangeText={handleNameChange}
         value={name}
       />
       <TextInput
-        style={styles.input}
+        style={[
+          styles.input,
+          isBirthDateInputEmpty ? styles.empty : styles.filled,
+        ]} // 변경된 코드
         placeholder="Birthday ex) 19980917"
-        onChangeText={(text) => setBirthDate(text)}
+        onChangeText={handleBirthDateChange}
         value={birthDate}
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, isEmailInputEmpty ? styles.empty : styles.filled]} // 변경된 코드
         placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
+        onChangeText={handleEmailChange}
         value={email}
       />
       {/* </View> */}
@@ -158,6 +199,12 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 12,
     fontWeight: "600",
+  },
+  empty: {
+    color: "#bbbbbb",
+  },
+  filled: {
+    color: "black",
   },
 });
 

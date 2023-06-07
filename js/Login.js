@@ -12,6 +12,20 @@ import store, { setIdKey } from "./Store";
 const Login = ({ successLogin, signup_show }) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [isIdInputEmpty, setIdInputEmpty] = useState(true); // 추가된 코드
+  const [isPasswordInputEmpty, setPasswordInputEmpty] = useState(true); // 추가된 코드
+
+  const handleIdChange = (text) => {
+    // 추가된 코드
+    setId(text);
+    setIdInputEmpty(text.length === 0);
+  };
+
+  const handlePasswordChange = (text) => {
+    // 추가된 코드
+    setPassword(text);
+    setPasswordInputEmpty(text.length === 0);
+  };
 
   const dispatch = useDispatch();
 
@@ -58,16 +72,19 @@ const Login = ({ successLogin, signup_show }) => {
       {/* </View>
       <View style={styles.inputcontainer}> */}
       <TextInput
-        style={styles.input}
+        style={[styles.input, isIdInputEmpty ? styles.empty : styles.filled]} // 변경된 코드
         placeholder="ID"
-        onChangeText={(text) => setId(text)}
+        onChangeText={handleIdChange}
         value={id}
       />
       <TextInput
-        style={styles.input}
+        style={[
+          styles.input,
+          isPasswordInputEmpty ? styles.empty : styles.filled,
+        ]} // 변경된 코드
         placeholder="PW"
         secureTextEntry
-        onChangeText={(text) => setPassword(text)}
+        onChangeText={handlePasswordChange}
         value={password}
       />
       {/* </View> */}
@@ -137,6 +154,12 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 12,
     fontWeight: "600",
+  },
+  empty: {
+    color: "#bbbbbb",
+  },
+  filled: {
+    color: "black",
   },
 });
 
