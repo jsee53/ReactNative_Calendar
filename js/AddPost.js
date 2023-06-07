@@ -12,7 +12,12 @@ import ko from "date-fns/locale/ko";
 import Bar from "./Bar";
 
 //일정 추가 모달 컴포넌트
-function AddPost({ isAddPostVisible, showAddPostModal, selectedDate }) {
+function AddPost({
+  isAddPostVisible,
+  showModal,
+  showAddPostModal,
+  selectedDate,
+}) {
   const [postTitle, setPostTitle] = useState(""); // 일정 제목 상태 관리
   const [postDate, setPostDate] = useState(selectedDate); // 일정 날짜 상태 관리
 
@@ -35,7 +40,6 @@ function AddPost({ isAddPostVisible, showAddPostModal, selectedDate }) {
     fetch("http://127.0.0.1:8000/addpost", postData).then((response) => {
       if (response.ok) {
         // 요청이 성공한 경우
-        alert("일정 추가 성공!");
         return response.json(); // JSON 형식으로 변환된 응답 반환
       } else {
         // 요청이 실패한 경우
@@ -44,7 +48,8 @@ function AddPost({ isAddPostVisible, showAddPostModal, selectedDate }) {
     });
 
     // 전송 후 모달 창 닫음
-    showAddPostModal("");
+    showAddPostModal();
+    showModal();
   };
 
   return (
@@ -57,7 +62,12 @@ function AddPost({ isAddPostVisible, showAddPostModal, selectedDate }) {
       <Bar />
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <TouchableOpacity onPress={showAddPostModal}>
+          <TouchableOpacity
+            onPress={() => {
+              showModal();
+              showAddPostModal();
+            }}
+          >
             <Text>X</Text>
           </TouchableOpacity>
           <Text>

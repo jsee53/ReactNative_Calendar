@@ -1,9 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
+import Bar from "./js/Bar";
 import Login from "./js/Login";
 import CalendarView from "./js/CalendarView";
 import Signup from "./js/Signup";
+import { Provider } from "react-redux";
+import store from "./js/Store";
 
 const App = () => {
   const [login, setLogin] = useState(false);
@@ -11,8 +14,7 @@ const App = () => {
 
   //로그인 성공 여부 확인
   const successLogin = (data) => {
-    setLogin(true);
-    console.log(data);
+    setLogin(data);
   };
 
   const signup_show = () => {
@@ -24,11 +26,15 @@ const App = () => {
     <View>
       <StatusBar style="auto" />
       {login ? (
-        <CalendarView />
+        <Provider store={store}>
+          <CalendarView />
+        </Provider>
       ) : signup ? (
         <Signup successLogin={successLogin} signup_show={signup_show} />
       ) : (
-        <Login successLogin={successLogin} signup_show={signup_show} />
+        <Provider store={store}>
+          <Login successLogin={successLogin} signup_show={signup_show} />
+        </Provider>
       )}
     </View>
   );

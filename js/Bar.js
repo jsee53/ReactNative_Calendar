@@ -22,33 +22,13 @@ const Bar = () => {
     setSelectedMonth(month);
   };
 
-  const options = {
-    years: [2021, 2022, 2023],
-    months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.leftContainer}>
         <Image source={require("../favicon/profile.png")} style={styles.icon} />
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <Text style={styles.label}>
-            {selectedYear}년 {selectedMonth}월
-          </Text>
-
-          {options.years.map((year) => (
-            <TouchableOpacity
-              key={year}
-              onPress={() => handleYearPress(year)}
-            ></TouchableOpacity>
-          ))}
-          {options.months.map((month) => (
-            <TouchableOpacity
-              key={month}
-              onPress={() => handleMonthPress(month)}
-            ></TouchableOpacity>
-          ))}
-        </ScrollView>
+        <Text style={styles.label}>
+          {selectedYear}년 {selectedMonth}월
+        </Text>
       </View>
       <View style={styles.centerContainer} />
       <View style={styles.rightContainer}>

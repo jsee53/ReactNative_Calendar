@@ -4,34 +4,64 @@ import { Calendar } from "react-native-calendars";
 import { format } from "date-fns";
 import Schedule from "./Schedule";
 import BottomBar from "./BottomBar";
-import Bar from "./Bar";
-import BatchedBridge from "react-native/Libraries/BatchedBridge/BatchedBridge";
 
 function CalendarView() {
   const [selectedDate, setSelectedDate] = useState(
     format(new Date(), "yyyy-MM-dd")
   );
-  const [posts, setPosts] = useState([
-    "2023-05-23",
-    "2023-05-23",
-    "2023-05-24",
-  ]);
 
   const [isVisible, setIsVisible] = useState(false); //날짜 클릭시 일정 모달 창 보여주기
   const showModal = () => {
     setIsVisible(!isVisible);
   };
 
-  const markedDates = posts.reduce((acc, current) => {
+  const id_key = useSelector((state) => state.idKey); // 로그인한 사용자의 id_key
+  const [scheduleData, setScheduleData] = useState([]); //사용자의 일정정보
+
+  useEffect(() => {
+    const fetchData = () => {
+      const userData = {
+        id_key: id_key,
+      };
+
+      const postData = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      };
+
+      fetch("http://127.0.0.1:8000/calendar", postData)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            alert("일정 불러오기 실패!");
+          }
+        })
+        .then((data) => {
+          // 시간 부분을 제외하고 날짜 부분만 저장
+          setScheduleData(data.schedule_data.map((date) => date.split("T")[0]));
+        })
+        .catch((error) => {
+          console.error("Error fetching schedule data:", error);
+        });
+    };
+
+    fetchData();
+  }, [id_key, isVisible]);
+
+  const markedDates = scheduleData.reduce((acc, current) => {
     acc[current] = { marked: true };
     return acc;
   }, {});
 
-  //선택한 날짜의 스타일 적용
+  //사용자 일정이 존재하는 날짜에 스타일 적용
   const markedSelectedDates = {
     ...markedDates, //markedDates 객체 복사, 스타일 적용 후 markedSelectedDates에 저장
     [selectedDate]: {
-      selected: true, //선택한 날짜
+      selected: true, //일정
       selectedDotColor: "orange",
       marked: markedDates[selectedDate]?.marked,
     },
