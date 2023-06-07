@@ -57,42 +57,42 @@ const Signup = ({ successLogin, signup_show }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.startcontainer}>
-        <Text style={styles.title}>Join</Text>
-      </View>
-      <View style={styles.inputcontainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="ID"
-          onChangeText={(text) => setId(text)}
-          value={id}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="PW"
-          secureTextEntry
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Name"
-          onChangeText={(text) => setName(text)}
-          value={name}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Birthday ex) 19980917"
-          onChangeText={(text) => setBirthDate(text)}
-          value={birthDate}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-        />
-      </View>
+      {/* <View style={styles.startcontainer}> */}
+      <Text style={styles.title}>Join</Text>
+      {/* </View>
+      <View style={styles.inputcontainer}> */}
+      <TextInput
+        style={styles.input}
+        placeholder="ID"
+        onChangeText={(text) => setId(text)}
+        value={id}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="PW"
+        secureTextEntry
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Name"
+        onChangeText={(text) => setName(text)}
+        value={name}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Birthday ex) 19980917"
+        onChangeText={(text) => setBirthDate(text)}
+        value={birthDate}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
+        value={email}
+      />
+      {/* </View> */}
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={signup_show}>
           <Text style={styles.buttonText}>취소</Text>
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     fontWeight: "600",
-    marginBottom: 20,
+    marginBottom: 50,
   },
   input: {
     width: 170,

@@ -53,24 +53,24 @@ const Login = ({ successLogin, signup_show }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.startcontainer}>
-        <Text style={styles.title}>AuViS</Text>
-      </View>
-      <View style={styles.inputcontainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="ID"
-          onChangeText={(text) => setId(text)}
-          value={id}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="PW"
-          secureTextEntry
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-        />
-      </View>
+      {/* <View style={styles.startcontainer}> */}
+      <Text style={styles.title}>AuViS</Text>
+      {/* </View>
+      <View style={styles.inputcontainer}> */}
+      <TextInput
+        style={styles.input}
+        placeholder="ID"
+        onChangeText={(text) => setId(text)}
+        value={id}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="PW"
+        secureTextEntry
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+      />
+      {/* </View> */}
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={signup_show}>
           <Text style={styles.buttonText}>회원가입</Text>
@@ -93,18 +93,24 @@ const styles = StyleSheet.create({
   },
   startcontainer: {
     flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
   },
   inputcontainer: {
     flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
   },
   buttonContainer: {
     flex: 5,
     flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
   },
   title: {
     fontSize: 40,
     fontWeight: "600",
-    marginBottom: 20,
+    marginBottom: 50,
     color: "black",
   },
   input: {
