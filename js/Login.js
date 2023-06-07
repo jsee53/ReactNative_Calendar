@@ -53,20 +53,24 @@ const Login = ({ successLogin, signup_show }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>AuViS</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="ID"
-        onChangeText={(text) => setId(text)}
-        value={id}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="PW"
-        secureTextEntry
-        onChangeText={(text) => setPassword(text)}
-        value={password}
-      />
+      <View style={styles.startcontainer}>
+        <Text style={styles.title}>AuViS</Text>
+      </View>
+      <View style={styles.inputcontainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="ID"
+          onChangeText={(text) => setId(text)}
+          value={id}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="PW"
+          secureTextEntry
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+        />
+      </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={signup_show}>
           <Text style={styles.buttonText}>회원가입</Text>
@@ -82,20 +86,26 @@ const Login = ({ successLogin, signup_show }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
     paddingTop: 300, // 추가된 스타일
+  },
+  startcontainer: {
+    flex: 1,
+  },
+  inputcontainer: {
+    flex: 1,
+  },
+  buttonContainer: {
+    flex: 5,
+    flexDirection: "row",
   },
   title: {
     fontSize: 40,
     fontWeight: "600",
     marginBottom: 20,
     color: "black",
-  },
-  inputContainer: {
-    alignItems: "center",
-    marginBottom: 10,
   },
   input: {
     width: 170, // 수정된 스타일
@@ -106,9 +116,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 10,
     marginBottom: 10,
-  },
-  buttonContainer: {
-    flexDirection: "row",
   },
   button: {
     width: 77,

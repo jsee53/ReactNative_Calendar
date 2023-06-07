@@ -57,38 +57,42 @@ const Signup = ({ successLogin, signup_show }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Join</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="ID"
-        onChangeText={(text) => setId(text)}
-        value={id}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="PW"
-        secureTextEntry
-        onChangeText={(text) => setPassword(text)}
-        value={password}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        onChangeText={(text) => setName(text)}
-        value={name}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Birthday ex) 19980917"
-        onChangeText={(text) => setBirthDate(text)}
-        value={birthDate}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
-        value={email}
-      />
+      <View style={styles.startcontainer}>
+        <Text style={styles.title}>Join</Text>
+      </View>
+      <View style={styles.inputcontainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="ID"
+          onChangeText={(text) => setId(text)}
+          value={id}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="PW"
+          secureTextEntry
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          onChangeText={(text) => setName(text)}
+          value={name}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Birthday ex) 19980917"
+          onChangeText={(text) => setBirthDate(text)}
+          value={birthDate}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          onChangeText={(text) => setEmail(text)}
+          value={email}
+        />
+      </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={signup_show}>
           <Text style={styles.buttonText}>취소</Text>
@@ -104,10 +108,26 @@ const Signup = ({ successLogin, signup_show }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
     paddingTop: 300, // 추가된 스타일
+  },
+  startcontainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  inputcontainer: {
+    flex: 3,
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  buttonContainer: {
+    flex: 3,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
   },
   title: {
     fontSize: 40,
@@ -123,9 +143,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 10,
     marginBottom: 10,
-  },
-  buttonContainer: {
-    flexDirection: "row",
   },
   button: {
     width: 77,
