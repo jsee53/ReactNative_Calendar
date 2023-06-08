@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, StatusBar } from "react-native";
 import Bar from "./js/Bar";
 import Login from "./js/Login";
 import CalendarView from "./js/CalendarView";
@@ -25,6 +25,7 @@ const App = () => {
     <View>
       {login ? (
         <View>
+          <StatusBar style="auto" />
           <Bar />
           <Provider store={store}>
             <CalendarView />

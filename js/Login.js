@@ -12,6 +12,20 @@ import { setIdKey } from "./Store";
 const Login = ({ successLogin, signup_show }) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [isIdInputEmpty, setIdInputEmpty] = useState(true); // 추가된 코드
+  const [isPasswordInputEmpty, setPasswordInputEmpty] = useState(true); // 추가된 코드
+
+  const handleIdChange = (text) => {
+    // 추가된 코드
+    setId(text);
+    setIdInputEmpty(text.length === 0);
+  };
+
+  const handlePasswordChange = (text) => {
+    // 추가된 코드
+    setPassword(text);
+    setPasswordInputEmpty(text.length === 0);
+  };
 
   const dispatch = useDispatch();
 
@@ -53,28 +67,33 @@ const Login = ({ successLogin, signup_show }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>로그인</Text>
+      {/* <View style={styles.startcontainer}> */}
+      <Text style={styles.title}>AuViS</Text>
+      {/* </View>
+      <View style={styles.inputcontainer}> */}
       <TextInput
-        style={styles.input}
+        style={[styles.input, isIdInputEmpty ? styles.empty : styles.filled]} // 변경된 코드
         placeholder="ID"
-        onChangeText={(text) => setId(text)}
+        onChangeText={handleIdChange}
         value={id}
       />
       <TextInput
-        style={styles.input}
+        style={[
+          styles.input,
+          isPasswordInputEmpty ? styles.empty : styles.filled,
+        ]} // 변경된 코드
         placeholder="PW"
         secureTextEntry
-        onChangeText={(text) => setPassword(text)}
+        onChangeText={handlePasswordChange}
         value={password}
       />
+      {/* </View> */}
       <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={signup_show}>
+          <Text style={styles.buttonText}>회원가입</Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>로그인</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText} onPress={signup_show}>
-            회원가입
-          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -84,47 +103,63 @@ const Login = ({ successLogin, signup_show }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 50, // 추가된 스타일
+    paddingTop: 300, // 추가된 스타일
+  },
+  startcontainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  inputcontainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  buttonContainer: {
+    flex: 5,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
   },
   title: {
     fontSize: 40,
     fontWeight: "600",
-    marginBottom: 20,
-  },
-  inputContainer: {
-    alignItems: "center",
-    marginBottom: 10,
+    marginBottom: 50,
+    color: "black",
   },
   input: {
-    width: 160, // 수정된 스타일
-    height: 25,
+    width: 170, // 수정된 스타일
+    height: 30,
+    color: "#bbbbbb",
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#004898",
     borderRadius: 4,
     paddingHorizontal: 10,
     marginBottom: 10,
   },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-  },
   button: {
     width: 77,
-    height: 27,
+    height: 30,
     backgroundColor: "#004898",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
     marginTop: 20,
+    marginHorizontal: 10,
   },
   buttonText: {
     color: "white",
     fontSize: 12,
     fontWeight: "600",
+  },
+  empty: {
+    color: "#bbbbbb",
+  },
+  filled: {
+    color: "black",
   },
 });
 
