@@ -5,7 +5,6 @@ import { format } from "date-fns";
 import Schedule from "./Schedule";
 import BottomBar from "./BottomBar";
 import { useSelector } from "react-redux";
-import { tr } from "date-fns/locale";
 
 function CalendarView() {
   const [selectedDate, setSelectedDate] = useState(

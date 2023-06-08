@@ -69,8 +69,8 @@ const Login = ({ successLogin, signup_show }) => {
     <View style={styles.container}>
       {/* <View style={styles.startcontainer}> */}
       <Text style={styles.title}>AuViS</Text>
-      {/* </View>
-      <View style={styles.inputcontainer}> */}
+      {/* </View> */}
+      {/* <View style={styles.inputcontainer}> */}
       <TextInput
         style={[styles.input, isIdInputEmpty ? styles.empty : styles.filled]} // 변경된 코드
         placeholder="ID"
