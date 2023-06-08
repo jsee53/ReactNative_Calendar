@@ -9,6 +9,7 @@ import {
 import { Modal } from "react-native";
 import { format } from "date-fns";
 import ko from "date-fns/locale/ko";
+import { useSelector } from "react-redux";
 
 //일정 추가 모달 컴포넌트
 function AddPost({
@@ -18,13 +19,16 @@ function AddPost({
   selectedDate,
 }) {
   const [postTitle, setPostTitle] = useState(""); // 일정 제목 상태 관리
-  const [postDate, setPostDate] = useState(selectedDate); // 일정 날짜 상태 관리
+  const [startDay, setStartDay] = useState(""); // 일정 시작 날짜
+  const [endDay, setEndDay] = useState(""); // 일정 종료 날짜
+  const id_key = useSelector((state) => state.idKey); // 로그인한 사용자의 id_key
 
   const handleSubmit = () => {
     const DateData = {
-      id_key: 1,
+      id_key: id_key,
       title: postTitle,
-      date: postDate,
+      startDay: startDay,
+      endDay: endDay,
     };
 
     // 서버로 전송할 데이터 객체(아이디, 제목, 날짜)
@@ -76,6 +80,18 @@ function AddPost({
             placeholder="일정 제목"
             value={postTitle}
             onChangeText={setPostTitle}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="일정 시작날짜"
+            value={startDay}
+            onChangeText={setStartDay}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="일정 종료날짜"
+            value={endDay}
+            onChangeText={setEndDay}
           />
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={styles.buttonText}>제출</Text>
