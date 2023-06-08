@@ -18,9 +18,37 @@ function CalendarView() {
   };
 
   const id_key = useSelector((state) => state.idKey); // 로그인한 사용자의 id_key
-  const [scheduleData, setScheduleData] = useState([]); //사용자의 일정정보
   const [scheduleStartData, setScheduleStartData] = useState([]); //사용자의 일정 시작 날짜
   const [scheduleEndData, setScheduleEndData] = useState([]); //사용자의 일정 종료 날짜
+
+  //일정 바 랜덤 색상
+  const getRandomColor = () => {
+    const colors = [
+      "#A4BDC6", // 라이트 그레이시안
+      "#D4AC79", // 바닐라
+      "#9CAFB7", // 밝은 스틸 블루
+      "#D2C2AC", // 산호
+      "#9BA5B2", // 드라이스카이
+      "#CBB79D", // 카키
+      "#AFBDC1", // 쿨 그레이
+      "#C5B198", // 베이지
+      "#ADB6BD", // 더스티 블루
+      "#B1AFA4", // 모크카
+      "#B5B0A1", // 아이보리
+      "#C2BCA9", // 선인장
+      "#8DA5AE", // 블루 그레이
+      "#B8B4A8", // 마른 잔디
+      "#B3B7A9", // 플래티넘
+      "#D0B9A0", // 머스터드
+      "#ADB9C2", // 스트롬 클라우드
+      "#B2C2BF", // 민트 그레이
+      "#BDB9A4", // 연금색
+      "#B6AFA1", // 셀프
+    ];
+
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  };
 
   useEffect(() => {
     const fetchData = () => {
@@ -63,42 +91,58 @@ function CalendarView() {
   const markedDates = scheduleStartData.reduce((acc, current, index) => {
     const startDate = current;
     const endDate = scheduleEndData[index];
+    let randomColor = getRandomColor();
+
     const startPeriod = {
       startingDay: true,
       endingDay: false,
-      color: "blue",
+      color: randomColor,
       textColor: "white",
     };
 
     const period = {
       startingDay: false,
       endingDay: false,
-      color: "blue",
+      color: randomColor,
       textColor: "white",
     };
 
     const endPeriod = {
       startingDay: false,
       endingDay: true,
-      color: "blue",
+      color: randomColor,
       textColor: "white",
     };
-
-    acc[startDate] = startPeriod;
 
     let currentDate = new Date(startDate);
     currentDate.setDate(currentDate.getDate() + 1);
 
     while (currentDate < new Date(endDate)) {
       const formattedDate = format(currentDate, "yyyy-MM-dd");
-      acc[formattedDate] = { ...period, color: "blue" };
+      const dayObj = acc[formattedDate] || {}; // 날짜 객체 가져오기
+      const periods = dayObj.periods || []; // periods 배열 가져오기
+      periods.push({ ...period, color: randomColor }); // periods에 상태 추가
+      dayObj.periods = periods; // 날짜 객체에 periods 배열 설정
+      acc[formattedDate] = dayObj; // 수정된 날짜 객체를 markedDates 객체에 할당
       currentDate.setDate(currentDate.getDate() + 1);
     }
 
-    acc[endDate] = endPeriod;
+    const endDayObj = acc[endDate] || {}; // 종료 날짜 객체 가져오기
+    const endPeriods = endDayObj.periods || []; // periods 배열 가져오기
+    endPeriods.push(endPeriod); // periods에 종료 날짜 상태 추가
+    endDayObj.periods = endPeriods; // 종료 날짜 객체에 periods 배열 설정
+    acc[endDate] = endDayObj; // 수정된 종료 날짜 객체를 markedDates 객체에 할당
+
+    const startDayObj = acc[startDate] || {}; // 시작 날짜 객체 가져오기
+    const startPeriods = startDayObj.periods || []; // periods 배열 가져오기
+    startPeriods.push(startPeriod); // periods에 시작 날짜 상태 추가
+    startDayObj.periods = startPeriods; // 시작 날짜 객체에 periods 배열 설정
+    acc[startDate] = startDayObj; // 수정된 시작 날짜 객체를 markedDates 객체에 할당
 
     return acc;
   }, {});
+
+  console.log(markedDates);
 
   return (
     <View>
