@@ -1,6 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, StatusBar } from "react-native";
 import Bar from "./js/Bar";
 import Login from "./js/Login";
 import CalendarView from "./js/CalendarView";
@@ -24,9 +23,9 @@ const App = () => {
 
   return (
     <View>
-      <Bar />
       {login ? (
         <View>
+          <StatusBar style="auto" />
           <Bar />
           <Provider store={store}>
             <CalendarView />

@@ -4,6 +4,8 @@ import { Modal } from "react-native";
 import { format } from "date-fns";
 import ko from "date-fns/locale/ko";
 import AddPost from "./AddPost";
+import { Provider } from "react-redux";
+import store from "./Store";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 //일정 클릭 시 일정을 보여주는 모달 컴포넌트
@@ -92,7 +94,6 @@ function Schedule({ isVisible, showModal, selectedDate }) {
       visible={isVisible} //모달 화면의 show 여부
       onRequestClose={showModal} //뒤로가기 시 모달창 닫음(안드로이드 용)
     >
-      <Bar />
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <TouchableOpacity onPress={showModal}>

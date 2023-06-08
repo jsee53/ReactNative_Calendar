@@ -9,6 +9,7 @@ import {
 import { Modal } from "react-native";
 import { format } from "date-fns";
 import ko from "date-fns/locale/ko";
+import { useSelector } from "react-redux";
 
 //일정 추가 모달 컴포넌트
 function AddPost({
@@ -61,7 +62,6 @@ function AddPost({
       visible={isAddPostVisible} //모달 화면의 show 여부
       onRequestClose={showAddPostModal} //뒤로가기 시 모달창 닫음(안드로이드 용)
     >
-      <Bar />
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <TouchableOpacity

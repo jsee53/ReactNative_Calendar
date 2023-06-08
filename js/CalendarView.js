@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import Schedule from "./Schedule";
 import BottomBar from "./BottomBar";
 import { useSelector } from "react-redux";
+import { tr } from "date-fns/locale";
 
 function CalendarView() {
   const [selectedDate, setSelectedDate] = useState(
@@ -101,7 +102,6 @@ function CalendarView() {
 
   return (
     <View>
-      <Bar />
       <Calendar
         style={{
           marginTop: 20,
@@ -130,13 +130,13 @@ function CalendarView() {
         // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
         hideExtraDays={true}
       />
-      <view>
+      <div>
         <Schedule
           isVisible={isVisible}
           showModal={showModal}
           selectedDate={selectedDate}
         />
-      </view>
+      </div>
       <BottomBar />
     </View>
   );
