@@ -24,26 +24,36 @@ function CalendarView() {
   //일정 바 랜덤 색상
   const getRandomColor = () => {
     const colors = [
-      "#A4BDC6", // 라이트 그레이시안
-      "#D4AC79", // 바닐라
-      "#9CAFB7", // 밝은 스틸 블루
-      "#D2C2AC", // 산호
-      "#9BA5B2", // 드라이스카이
-      "#CBB79D", // 카키
-      "#AFBDC1", // 쿨 그레이
-      "#C5B198", // 베이지
-      "#ADB6BD", // 더스티 블루
-      "#B1AFA4", // 모크카
-      "#B5B0A1", // 아이보리
-      "#C2BCA9", // 선인장
-      "#8DA5AE", // 블루 그레이
-      "#B8B4A8", // 마른 잔디
-      "#B3B7A9", // 플래티넘
-      "#D0B9A0", // 머스터드
-      "#ADB9C2", // 스트롬 클라우드
-      "#B2C2BF", // 민트 그레이
-      "#BDB9A4", // 연금색
-      "#B6AFA1", // 셀프
+      "lightblue",
+      "lightskyblue",
+      "mediumaquamarine",
+      "palegreen",
+      "mediumspringgreen",
+      "limegreen",
+      "lightgreen",
+      "mediumseagreen",
+      "lightsteelblue",
+      "paleturquoise",
+      "mediumturquoise",
+      "aquamarine",
+      "lightyellow",
+      "palegoldenrod",
+      "khaki",
+      "lemonchiffon",
+      "lightpink",
+      "lightcoral",
+      "lightsalmon",
+      "peachpuff",
+      "lightgoldenrodyellow",
+      "moccasin",
+      "pink",
+      "lavenderblush",
+      "thistle",
+      "plum",
+      "mediumorchid",
+      "mediumvioletred",
+      "lavender",
+      "cornflowerblue",
     ];
 
     const randomIndex = Math.floor(Math.random() * colors.length);
@@ -141,8 +151,6 @@ function CalendarView() {
 
     return acc;
   }, {});
-
-  console.log(markedDates);
 
   return (
     <View>

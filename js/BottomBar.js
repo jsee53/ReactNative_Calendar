@@ -1,11 +1,33 @@
 import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import ImagePicker from "react-native-image-picker";
 
 const BottomBar = () => {
+  const openGallery = () => {
+    const options = {
+      mediaType: "photo",
+    };
+    ImagePicker.launchImageLibrary(options, (response) => {
+      if (response.didCancel) {
+        console.log("사용자가 선택을 취소했습니다.");
+      } else if (response.error) {
+        console.log("사진 선택 중 오류가 발생했습니다:", response.error);
+      } else {
+        console.log("사용자가 선택한 사진:", response.uri);
+        // 선택한 사진을 처리하는 로직을 여기에 추가합니다.
+      }
+    });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.leftContainer}>
-        <Image source={require("../favicon/gallery.png")} style={styles.icon} />
+        <TouchableOpacity onPress={openGallery}>
+          <Image
+            source={require("../favicon/gallery.png")}
+            style={styles.icon}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.rightContainer}>
         <Image source={require("../favicon/camera.png")} style={styles.icon} />
