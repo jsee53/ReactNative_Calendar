@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Provider } from "react-redux";
+import store from "./Store";
+import Profile from "./Profile";
 
 const Bar = () => {
   const today = new Date();
@@ -14,18 +10,22 @@ const Bar = () => {
   const [selectedYear, setSelectedYear] = useState(today.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(today.getMonth() + 1);
 
-  const handleYearPress = (year) => {
-    setSelectedYear(year);
-  };
-
-  const handleMonthPress = (month) => {
-    setSelectedMonth(month);
+  // 프로필 모달 표시 여부
+  const [isProfileVisible, setIsProfileVisible] = useState(false);
+  // 프로필 클릭 이벤트 처리 함수
+  const handleProfile = () => {
+    setIsProfileVisible(!isProfileVisible);
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.leftContainer}>
-        <Image source={require("../favicon/profile.png")} style={styles.icon} />
+        <TouchableOpacity onPress={handleProfile}>
+          <Image
+            source={require("../favicon/profile.png")}
+            style={styles.icon}
+          />
+        </TouchableOpacity>
         <Text style={styles.label}>
           {selectedYear}년 {selectedMonth}월
         </Text>
@@ -35,6 +35,15 @@ const Bar = () => {
         <Image source={require("../favicon/search.png")} style={styles.icon} />
         <Image source={require("../favicon/alert.png")} style={styles.icon} />
       </View>
+
+      {isProfileVisible && (
+        <Provider store={store}>
+          <Profile
+            isProfileVisible={isProfileVisible}
+            handleProfile={handleProfile}
+          />
+        </Provider>
+      )}
     </View>
   );
 };

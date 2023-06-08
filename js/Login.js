@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { Provider, useSelector, useDispatch } from "react-redux";
-import store, { setIdKey } from "./Store";
+import { setIdKey } from "./Store";
 
 const Login = ({ successLogin, signup_show }) => {
   const [id, setId] = useState("");

@@ -4,6 +4,7 @@ import { Calendar } from "react-native-calendars";
 import { format } from "date-fns";
 import Schedule from "./Schedule";
 import BottomBar from "./BottomBar";
+import { useSelector } from "react-redux";
 
 function CalendarView() {
   const [selectedDate, setSelectedDate] = useState(
@@ -17,6 +18,8 @@ function CalendarView() {
 
   const id_key = useSelector((state) => state.idKey); // 로그인한 사용자의 id_key
   const [scheduleData, setScheduleData] = useState([]); //사용자의 일정정보
+  const [scheduleStartData, setScheduleStartData] = useState([]); //사용자의 일정 시작 날짜
+  const [scheduleEndData, setScheduleEndData] = useState([]); //사용자의 일정 종료 날짜
 
   useEffect(() => {
     const fetchData = () => {
@@ -41,31 +44,60 @@ function CalendarView() {
           }
         })
         .then((data) => {
-          // 시간 부분을 제외하고 날짜 부분만 저장
-          setScheduleData(data.schedule_data.map((date) => date.split("T")[0]));
+          if (Array.isArray(data) && data.length > 0) {
+            setScheduleStartData(
+              data.map((item) => item.start_date.split("T")[0])
+            );
+            setScheduleEndData(data.map((item) => item.end_date.split("T")[0]));
+          }
         })
         .catch((error) => {
-          console.error("Error fetching schedule data:", error);
+          console.error("일정 불러오기 오류!", error);
         });
     };
 
     fetchData();
   }, [id_key, isVisible]);
 
-  const markedDates = scheduleData.reduce((acc, current) => {
-    acc[current] = { marked: true };
+  const markedDates = scheduleStartData.reduce((acc, current, index) => {
+    const startDate = current;
+    const endDate = scheduleEndData[index];
+    const startPeriod = {
+      startingDay: true,
+      endingDay: false,
+      color: "blue",
+      textColor: "white",
+    };
+
+    const period = {
+      startingDay: false,
+      endingDay: false,
+      color: "blue",
+      textColor: "white",
+    };
+
+    const endPeriod = {
+      startingDay: false,
+      endingDay: true,
+      color: "blue",
+      textColor: "white",
+    };
+
+    acc[startDate] = startPeriod;
+
+    let currentDate = new Date(startDate);
+    currentDate.setDate(currentDate.getDate() + 1);
+
+    while (currentDate < new Date(endDate)) {
+      const formattedDate = format(currentDate, "yyyy-MM-dd");
+      acc[formattedDate] = { ...period, color: "blue" };
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    acc[endDate] = endPeriod;
+
     return acc;
   }, {});
-
-  //사용자 일정이 존재하는 날짜에 스타일 적용
-  const markedSelectedDates = {
-    ...markedDates, //markedDates 객체 복사, 스타일 적용 후 markedSelectedDates에 저장
-    [selectedDate]: {
-      selected: true, //일정
-      selectedDotColor: "orange",
-      marked: markedDates[selectedDate]?.marked,
-    },
-  };
 
   return (
     <View>
@@ -76,13 +108,13 @@ function CalendarView() {
           height: 600,
           width: 393,
         }}
-        markedDates={markedSelectedDates}
+        markingType="multi-period"
+        markedDates={markedDates}
         theme={{
           calendarBackground: "white", //캘린더 배경색
           textSectionTitleColor: "black", //월 ~ 일요일 색상
-          selectedDayBackgroundColor: "rgb(33, 150, 243)", //선택된 날짜 배경색
-          selectedDayTextColor: "white", //선택된 날짜 글자 색상
-          todayTextColor: "black", //오늘 날짜 글자 색상
+          selectedDayTextColor: "blue", //선택된 날짜 글자 색상
+          todayTextColor: "blue", //오늘 날짜 글자 색상
           dayTextColor: "black", //일반 날짜 글자 색상
         }}
         //날짜 선택시 실행될 함수

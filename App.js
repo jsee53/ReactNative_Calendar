@@ -24,11 +24,14 @@ const App = () => {
 
   return (
     <View>
-      <StatusBar style="auto" />
+      <Bar />
       {login ? (
-        <Provider store={store}>
-          <CalendarView />
-        </Provider>
+        <View>
+          <Bar />
+          <Provider store={store}>
+            <CalendarView />
+          </Provider>
+        </View>
       ) : signup ? (
         <Signup successLogin={successLogin} signup_show={signup_show} />
       ) : (

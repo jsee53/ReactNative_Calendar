@@ -4,6 +4,7 @@ import { Modal } from "react-native";
 import { format } from "date-fns";
 import ko from "date-fns/locale/ko";
 import AddPost from "./AddPost";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 //일정 클릭 시 일정을 보여주는 모달 컴포넌트
 function Schedule({ isVisible, showModal, selectedDate }) {
@@ -116,12 +117,14 @@ function Schedule({ isVisible, showModal, selectedDate }) {
           >
             <Text>추가</Text>
           </TouchableOpacity>
-          <AddPost
-            isAddPostVisible={isAddPostVisible}
-            showModal={showModal}
-            showAddPostModal={showAddPostModal}
-            selectedDate={selectedDate}
-          />
+          <Provider store={store}>
+            <AddPost
+              isAddPostVisible={isAddPostVisible}
+              showModal={showModal}
+              showAddPostModal={showAddPostModal}
+              selectedDate={selectedDate}
+            />
+          </Provider>
         </View>
       </View>
     </Modal>
