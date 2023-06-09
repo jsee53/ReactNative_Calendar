@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Provider } from "react-redux";
 import store from "./Store";
 import Profile from "./Profile";
+import * as ImagePicker from "expo-image-picker";
 
 const Bar = () => {
   const today = new Date();
