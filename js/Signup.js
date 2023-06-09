@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { setIdKey } from "./Store";
 
 const Signup = ({ successLogin, signup_show }) => {
   const [id, setId] = useState("");
@@ -18,6 +20,8 @@ const Signup = ({ successLogin, signup_show }) => {
   const [isNameInputEmpty, setNameInputEmpty] = useState(true); // 추가된 코드
   const [isBirthDateInputEmpty, setBirthDateInputEmpty] = useState(true); // 추가된 코드
   const [isEmailInputEmpty, setEmailInputEmpty] = useState(true); // 추가된 코드
+
+  const dispatch = useDispatch();
 
   const handleIdChange = (text) => {
     // 추가된 코드
@@ -82,7 +86,8 @@ const Signup = ({ successLogin, signup_show }) => {
         if (data.successSignup) {
           //회원가입 성공 시 ClanedarView 페이지로 이동
           alert("회원가입 성공!");
-          successLogin();
+          dispatch(setIdKey(data.id_key)); //로그인 한 사용자의 id_key 값을 저장
+          successLogin(data.successSignup);
         } else {
           //회원가입 실패 시
           alert("회원가입 실패!");

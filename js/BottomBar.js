@@ -1,15 +1,46 @@
-import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Image, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { Provider } from "react-redux";
+import store from "./Store";
+import Photo from "./Photo";
 
 const BottomBar = () => {
+  const [image, setImage] = useState(null);
+  const [isPhotoVisible, setIsPhotoVisible] = useState(false);
+
+  //해당 모달창을 보여줄지 여부
+  const showPhotoModal = () => {
+    setIsPhotoVisible(!isPhotoVisible);
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.leftContainer}>
-        <Image source={require("../favicon/gallery.png")} style={styles.icon} />
+    <View>
+      <View style={styles.container}>
+        <View style={styles.leftContainer}>
+          <TouchableOpacity onPress={showPhotoModal}>
+            <Image
+              source={require("../favicon/gallery.png")}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.rightContainer}>
+          <TouchableOpacity onPress={showPhotoModal}>
+            <Image
+              source={require("../favicon/camera.png")}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.rightContainer}>
-        <Image source={require("../favicon/camera.png")} style={styles.icon} />
-      </View>
+      <Provider store={store}>
+        <Photo
+          isPhotoVisible={isPhotoVisible}
+          showPhotoModal={showPhotoModal}
+          image={image}
+        />
+      </Provider>
     </View>
   );
 };

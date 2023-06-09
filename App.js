@@ -32,7 +32,9 @@ const App = () => {
           </Provider>
         </View>
       ) : signup ? (
-        <Signup successLogin={successLogin} signup_show={signup_show} />
+        <Provider store={store}>
+          <Signup successLogin={successLogin} signup_show={signup_show} />
+        </Provider>
       ) : (
         <Provider store={store}>
           <Login successLogin={successLogin} signup_show={signup_show} />
