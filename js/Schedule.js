@@ -10,12 +10,12 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 //일정 클릭 시 일정을 보여주는 모달 컴포넌트
 function Schedule({ isVisible, showModal, selectedDate }) {
-  const [isAddPostVisible, setIsVisible] = useState(false); //날짜 클릭시 일정 모달 창 보여주기
+  const [isAddPostVisible, setIsAddPostVisible] = useState(false); //날짜 클릭시 일정 모달 창 보여주기
   const [scheduleTitle, setScheduleTitle] = useState([]); //해당 날짜의 일정 제목
 
   //해당 모달창을 보여줄지 여부
   const showAddPostModal = () => {
-    setIsVisible(!isAddPostVisible);
+    setIsAddPostVisible(!isAddPostVisible);
   };
 
   //제목 앞에 보여질 랜덤 색상

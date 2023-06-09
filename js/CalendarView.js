@@ -5,7 +5,6 @@ import { format } from "date-fns";
 import Schedule from "./Schedule";
 import BottomBar from "./BottomBar";
 import { useSelector } from "react-redux";
-import { tr } from "date-fns/locale";
 
 function CalendarView() {
   const [selectedDate, setSelectedDate] = useState(
@@ -124,30 +123,38 @@ function CalendarView() {
       textColor: "white",
     };
 
-    let currentDate = new Date(startDate);
-    currentDate.setDate(currentDate.getDate() + 1);
-
-    while (currentDate < new Date(endDate)) {
-      const formattedDate = format(currentDate, "yyyy-MM-dd");
-      const dayObj = acc[formattedDate] || {}; // 날짜 객체 가져오기
-      const periods = dayObj.periods || []; // periods 배열 가져오기
-      periods.push({ ...period, color: randomColor }); // periods에 상태 추가
-      dayObj.periods = periods; // 날짜 객체에 periods 배열 설정
-      acc[formattedDate] = dayObj; // 수정된 날짜 객체를 markedDates 객체에 할당
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-
-    const endDayObj = acc[endDate] || {}; // 종료 날짜 객체 가져오기
-    const endPeriods = endDayObj.periods || []; // periods 배열 가져오기
-    endPeriods.push(endPeriod); // periods에 종료 날짜 상태 추가
-    endDayObj.periods = endPeriods; // 종료 날짜 객체에 periods 배열 설정
-    acc[endDate] = endDayObj; // 수정된 종료 날짜 객체를 markedDates 객체에 할당
-
     const startDayObj = acc[startDate] || {}; // 시작 날짜 객체 가져오기
     const startPeriods = startDayObj.periods || []; // periods 배열 가져오기
-    startPeriods.push(startPeriod); // periods에 시작 날짜 상태 추가
-    startDayObj.periods = startPeriods; // 시작 날짜 객체에 periods 배열 설정
-    acc[startDate] = startDayObj; // 수정된 시작 날짜 객체를 markedDates 객체에 할당
+
+    if (startDate === endDate) {
+      // 시작 날짜와 종료 날짜가 같은 경우
+      startPeriods.push({ ...startPeriod, endingDay: true }); // periods에 시작/종료 날짜 상태 추가
+      startDayObj.periods = startPeriods; // 시작 날짜 객체에 periods 배열 설정
+      acc[startDate] = startDayObj; // 수정된 시작 날짜 객체를 markedDates 객체에 할당
+    } else {
+      let currentDate = new Date(startDate);
+      currentDate.setDate(currentDate.getDate() + 1);
+
+      while (currentDate < new Date(endDate)) {
+        const formattedDate = format(currentDate, "yyyy-MM-dd");
+        const dayObj = acc[formattedDate] || {}; // 날짜 객체 가져오기
+        const periods = dayObj.periods || []; // periods 배열 가져오기
+        periods.push({ ...period, color: randomColor }); // periods에 상태 추가
+        dayObj.periods = periods; // 날짜 객체에 periods 배열 설정
+        acc[formattedDate] = dayObj; // 수정된 날짜 객체를 markedDates 객체에 할당
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+
+      const endDayObj = acc[endDate] || {}; // 종료 날짜 객체 가져오기
+      const endPeriods = endDayObj.periods || []; // periods 배열 가져오기
+      endPeriods.push(endPeriod); // periods에 종료 날짜 상태 추가
+      endDayObj.periods = endPeriods; // 종료 날짜 객체에 periods 배열 설정
+      acc[endDate] = endDayObj; // 수정된 종료 날짜 객체를 markedDates 객체에 할당
+
+      startPeriods.push(startPeriod); // periods에 시작 날짜 상태 추가
+      startDayObj.periods = startPeriods; // 시작 날짜 객체에 periods 배열 설정
+      acc[startDate] = startDayObj; // 수정된 시작 날짜 객체를 markedDates 객체에 할당
+    }
 
     return acc;
   }, {});
@@ -174,12 +181,13 @@ function CalendarView() {
           setSelectedDate(day.dateString); //선택한 날짜를 selectedDate에 저장
           setIsVisible(true); //선택한 날짜의 Schedule 컴포넌트를 보여줌
         }}
-        monthFormat={"yyyy년 MM월"}
+        monthFormat={""}
         // 기본 화살표를 커스텀화살표로 대체 (방향은 '왼쪽'이나 '오른쪽')
-        renderArrow={(direction) =>
-          direction === "left" ? <div>이전달</div> : <div>다음달</div>
-        }
-        // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
+        renderHeader={() => {}}
+        // renderArrow={(direction) =>
+        //   direction === "left" ? <div>이전달</div> : <div>다음달</div>
+        // }
+        // // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
         hideExtraDays={true}
       />
       <div>

@@ -1,37 +1,46 @@
-import React from "react";
-import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
-import ImagePicker from "react-native-image-picker";
+import React, { useState } from "react";
+import { View, Image, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { Provider } from "react-redux";
+import store from "./Store";
+import Photo from "./Photo";
 
 const BottomBar = () => {
-  const openGallery = () => {
-    const options = {
-      mediaType: "photo",
-    };
-    ImagePicker.launchImageLibrary(options, (response) => {
-      if (response.didCancel) {
-        console.log("사용자가 선택을 취소했습니다.");
-      } else if (response.error) {
-        console.log("사진 선택 중 오류가 발생했습니다:", response.error);
-      } else {
-        console.log("사용자가 선택한 사진:", response.uri);
-        // 선택한 사진을 처리하는 로직을 여기에 추가합니다.
-      }
-    });
+  const [image, setImage] = useState(null);
+  const [isPhotoVisible, setIsPhotoVisible] = useState(false);
+
+  //해당 모달창을 보여줄지 여부
+  const showPhotoModal = () => {
+    setIsPhotoVisible(!isPhotoVisible);
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.leftContainer}>
-        <TouchableOpacity onPress={openGallery}>
-          <Image
-            source={require("../favicon/gallery.png")}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
+    <View>
+      <View style={styles.container}>
+        <View style={styles.leftContainer}>
+          <TouchableOpacity onPress={showPhotoModal}>
+            <Image
+              source={require("../favicon/gallery.png")}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.rightContainer}>
+          <TouchableOpacity onPress={showPhotoModal}>
+            <Image
+              source={require("../favicon/camera.png")}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.rightContainer}>
-        <Image source={require("../favicon/camera.png")} style={styles.icon} />
-      </View>
+      <Provider store={store}>
+        <Photo
+          isPhotoVisible={isPhotoVisible}
+          showPhotoModal={showPhotoModal}
+          image={image}
+        />
+      </Provider>
     </View>
   );
 };
