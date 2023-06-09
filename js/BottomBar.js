@@ -20,22 +20,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    height: 60,
+    height: 70,
     width: 393,
     backgroundColor: "#004898", // 하단바 배경색
   },
   leftContainer: {
+    height: 70,
+    width: 195.5,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start", // 왼쪽 정렬
+    justifyContent: "center", // 왼쪽 정렬
   },
   centerContainer: {
     flex: 1,
   },
   rightContainer: {
+    height: 70,
+    width: 195.5,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-end", // 오른쪽 정렬
+    justifyContent: "center", // 오른쪽 정렬
   },
   icon: {
     width: 24, // 이미지 너비

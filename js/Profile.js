@@ -79,7 +79,7 @@ const Profile = ({ isProfileVisible, handleProfile }) => {
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={[styles.button, { backgroundColor: "#004898" }]}
+            style={styles.button}
             onPress={handleProfile} // 취소 버튼 눌렀을 때 모달창 닫음
           >
             <Text style={styles.buttonText}>확인</Text>
@@ -119,15 +119,19 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   button: {
-    flex: 1,
-    marginHorizontal: 8,
-    paddingVertical: 8,
-    borderRadius: 4,
+    width: 77,
+    height: 30,
+    backgroundColor: "#004898",
+    justifyContent: "center",
     alignItems: "center",
+    borderRadius: 4,
+    marginTop: 20,
+    marginHorizontal: 10,
   },
   buttonText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 12,
+    fontWeight: "600",
   },
 });
 

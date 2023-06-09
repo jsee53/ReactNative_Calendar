@@ -147,7 +147,7 @@ function CalendarView() {
     <View>
       <Calendar
         style={{
-          marginTop: 20,
+          marginTop: 0,
           height: 600,
           width: 393,
         }}
@@ -167,9 +167,9 @@ function CalendarView() {
         }}
         monthFormat={"yyyy년 MM월"}
         // 기본 화살표를 커스텀화살표로 대체 (방향은 '왼쪽'이나 '오른쪽')
-        renderArrow={(direction) =>
-          direction === "left" ? <div>이전달</div> : <div>다음달</div>
-        }
+        renderArrow={(direction) => (
+          <div>{direction === "left" ? "<" : ">"}</div>
+        )}
         // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
         hideExtraDays={true}
       />
