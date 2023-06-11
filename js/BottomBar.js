@@ -51,12 +51,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    height: 70,
+    height: 60,
     width: 393,
     backgroundColor: "#004898", // 하단바 배경색
   },
   leftContainer: {
-    height: 70,
+    height: 60,
     width: 195.5,
     flexDirection: "row",
     alignItems: "center",
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   rightContainer: {
-    height: 70,
+    height: 60,
     width: 195.5,
     flexDirection: "row",
     alignItems: "center",

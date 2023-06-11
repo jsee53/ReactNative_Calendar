@@ -54,21 +54,21 @@ const Profile = ({ isProfileVisible, handleProfile }) => {
       onRequestClose={handleProfile} // 뒤로가기 시 모달창 닫음(안드로이드 용)
     >
       <View style={styles.container}>
-        <Text style={styles.title}>사용자 정보</Text>
+        <Text style={styles.title}>My Page</Text>
         <View style={styles.infoContainer}>
-          <Text style={styles.label}>아이디:</Text>
+          <Text style={styles.label}>ID:</Text>
           <Text style={styles.value}>{userId}</Text>
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.label}>이름:</Text>
+          <Text style={styles.label}>Name:</Text>
           <Text style={styles.value}>{userName}</Text>
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.label}>생년월일:</Text>
+          <Text style={styles.label}>Birthday:</Text>
           <Text style={styles.value}>{birthDate}</Text>
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.label}>이메일:</Text>
+          <Text style={styles.label}>Email:</Text>
           <Text style={styles.value}>{email}</Text>
         </View>
         <View style={styles.buttonContainer}>
@@ -88,13 +88,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "flex-start",
-    paddingHorizontal: 16,
+    alignItems: "center",
+    paddingHorizontal: 20,
   },
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 20,
+    fontSize: 40,
+    fontWeight: "600",
+    marginBottom: 50,
+    color: "black",
   },
   infoContainer: {
     flexDirection: "row",

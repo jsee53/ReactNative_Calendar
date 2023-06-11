@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 300, // 추가된 스타일
+    paddingTop: 200, // 추가된 스타일
   },
   startcontainer: {
     flex: 1,
