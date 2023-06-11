@@ -94,13 +94,15 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     fontWeight: "600",
-    marginBottom: 50,
+    marginBottom: 80,
     color: "black",
   },
   infoContainer: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     marginBottom: 10,
+    marginLeft: 50,
   },
   label: {
     fontWeight: "bold",
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    marginTop: 16,
+    marginTop: 50,
   },
   button: {
     width: 77,

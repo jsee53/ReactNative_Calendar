@@ -103,10 +103,14 @@ const Login = ({ successLogin, signup_show }) => {
       />
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={signup_show}>
-          <Text style={styles.buttonText}>회원가입</Text>
+          <View>
+            <Text style={styles.buttonText}>회원가입</Text>
+          </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>로그인</Text>
+          <View>
+            <Text style={styles.buttonText}>로그인</Text>
+          </View>
         </TouchableOpacity>
       </View>
     </View>
@@ -119,7 +123,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 200, // 추가된 스타일
+    paddingTop: 300, // 추가된 스타일
   },
   buttonContainer: {
     flex: 5,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { format } from "date-fns";
 import Schedule from "./Schedule";
@@ -7,6 +7,31 @@ import BottomBar from "./BottomBar";
 import { useSelector } from "react-redux";
 
 function CalendarView() {
+  const customRenderDay = (day) => {
+    const isToday = day.dateString === format(new Date(), "yyyy-MM-dd");
+    const isSelected = day.dateString === selectedDate;
+
+    let backgroundColor = isToday ? "lightblue" : "white";
+    if (isSelected) {
+      backgroundColor = "blue";
+    }
+
+    return (
+      <View
+        style={[
+          {
+            justifyContent: "center",
+            alignItems: "center",
+            height: 500,
+            backgroundColor: backgroundColor,
+          },
+        ]}
+      >
+        <Text style={styles.dayText}>{day.day}</Text>
+      </View>
+    );
+  };
+
   const [selectedDate, setSelectedDate] = useState(
     format(new Date(), "yyyy-MM-dd")
   );
@@ -161,6 +186,8 @@ function CalendarView() {
   return (
     <View>
       <Calendar
+        renderDay={customRenderDay}
+        customRenderDay={customRenderDay} // 날짜 박스 컴포넌트를 커스텀
         style={{
           marginTop: 0,
           height: 600,
@@ -183,7 +210,7 @@ function CalendarView() {
         monthFormat={""}
         // 기본 화살표를 커스텀화살표로 대체 (방향은 '왼쪽'이나 '오른쪽')
         renderArrow={(direction) => (
-          <div>{direction === "left" ? "<" : ">"}</div>
+          <Text>{direction === "left" ? "<" : ">"}</Text>
         )}
         // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
         hideExtraDays={true}
@@ -199,5 +226,11 @@ function CalendarView() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  dayText: {
+    color: "black",
+  },
+});
 
 export default CalendarView;

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  Text,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Provider } from "react-redux";
 import store from "./Store";
@@ -33,22 +40,24 @@ const BottomBar = () => {
   return (
     <View>
       <View style={styles.container}>
-        <View style={styles.leftContainer}>
-          <TouchableOpacity onPress={handleSubmit}>
+        <TouchableOpacity style={styles.leftContainer} onPress={handleSubmit}>
+          <View style={styles.contentContainer}>
             <Image
               source={require("../favicon/gallery.png")}
               style={styles.icon}
             />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.rightContainer}>
-          <TouchableOpacity onPress={handleSubmit}>
+            <Text style={styles.text}>앨범</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.rightContainer} onPress={handleSubmit}>
+          <View style={styles.contentContainer}>
             <Image
               source={require("../favicon/camera.png")}
               style={styles.icon}
             />
-          </TouchableOpacity>
-        </View>
+            <Text style={styles.text}>카메라</Text>
+          </View>
+        </TouchableOpacity>
       </View>
       <Provider store={store}>
         <Photo
@@ -65,9 +74,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
     paddingHorizontal: 16,
-    height: 60,
+    height: 100,
     width: 393,
     backgroundColor: "#004898", // 하단바 배경색
   },
@@ -77,9 +86,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center", // 왼쪽 정렬
-  },
-  centerContainer: {
-    flex: 1,
+    paddingBottom: 25,
   },
   rightContainer: {
     height: 60,
@@ -87,13 +94,21 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center", // 오른쪽 정렬
+    paddingBottom: 25,
   },
   icon: {
     width: 24, // 이미지 너비
     height: 24, // 이미지 높이
   },
+  contentContainer: {
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
   text: {
-    marginLeft: 8,
+    marginTop: 3,
+    color: "#f5f5f5", // 텍스트 색상
+    fontSize: 12, // 텍스트 크기
+    fontWeight: 600,
   },
 });
 
