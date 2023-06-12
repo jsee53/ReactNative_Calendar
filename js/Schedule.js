@@ -89,7 +89,7 @@ function Schedule({ isVisible, showModal, selectedDate }) {
             <TouchableOpacity style={styles.close} onPress={showModal}>
               <Image
                 source={require("../favicon/X.png")}
-                style={styles.closetxt}
+                style={[styles.closetxt, { width: 20, height: 20 }]}
               />
             </TouchableOpacity>
           </View>
