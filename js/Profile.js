@@ -54,26 +54,26 @@ const Profile = ({ isProfileVisible, handleProfile }) => {
       onRequestClose={handleProfile} // 뒤로가기 시 모달창 닫음(안드로이드 용)
     >
       <View style={styles.container}>
-        <Text style={styles.title}>사용자 정보</Text>
+        <Text style={styles.title}>My Page</Text>
         <View style={styles.infoContainer}>
-          <Text style={styles.label}>아이디:</Text>
+          <Text style={styles.label}>ID:</Text>
           <Text style={styles.value}>{userId}</Text>
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.label}>이름:</Text>
+          <Text style={styles.label}>Name:</Text>
           <Text style={styles.value}>{userName}</Text>
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.label}>생년월일:</Text>
+          <Text style={styles.label}>Birthday:</Text>
           <Text style={styles.value}>{birthDate}</Text>
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.label}>이메일:</Text>
+          <Text style={styles.label}>Email:</Text>
           <Text style={styles.value}>{email}</Text>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={[styles.button, { backgroundColor: "#004898" }]}
+            style={styles.button}
             onPress={handleProfile} // 취소 버튼 눌렀을 때 모달창 닫음
           >
             <Text style={styles.buttonText}>확인</Text>
@@ -88,18 +88,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "flex-start",
-    paddingHorizontal: 16,
+    alignItems: "center",
+    paddingHorizontal: 20,
   },
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 20,
+    fontSize: 40,
+    fontWeight: "600",
+    marginBottom: 80,
+    color: "black",
   },
   infoContainer: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     marginBottom: 10,
+    marginLeft: 50,
   },
   label: {
     fontWeight: "bold",
@@ -110,18 +113,22 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    marginTop: 16,
+    marginTop: 50,
   },
   button: {
-    flex: 1,
-    marginHorizontal: 8,
-    paddingVertical: 8,
-    borderRadius: 4,
+    width: 77,
+    height: 30,
+    backgroundColor: "#004898",
+    justifyContent: "center",
     alignItems: "center",
+    borderRadius: 4,
+    marginTop: 20,
+    marginHorizontal: 10,
   },
   buttonText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 12,
+    fontWeight: "600",
   },
 });
 

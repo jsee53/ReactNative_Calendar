@@ -26,14 +26,23 @@ const Bar = () => {
             style={styles.icon}
           />
         </TouchableOpacity>
-        <Text style={styles.label}>
-          {selectedYear}년 {selectedMonth}월
-        </Text>
+        <TouchableOpacity style={styles.selectmonth}>
+          <Text style={styles.label}>
+            {selectedYear} / {selectedMonth}
+          </Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.centerContainer} />
       <View style={styles.rightContainer}>
-        <Image source={require("../favicon/search.png")} style={styles.icon} />
-        <Image source={require("../favicon/alert.png")} style={styles.icon} />
+        <TouchableOpacity style={styles.selectmonth}>
+          <Image
+            source={require("../favicon/search.png")}
+            style={styles.icon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.selectmonth}>
+          <Image source={require("../favicon/alert.png")} style={styles.icon} />
+        </TouchableOpacity>
       </View>
 
       {isProfileVisible && (
@@ -62,6 +71,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  selectmonth: {
+    marginLeft: 10,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  label: {},
   centerContainer: {
     flex: 1,
   },

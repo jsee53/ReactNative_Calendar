@@ -84,10 +84,7 @@ const Login = ({ successLogin, signup_show }) => {
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.startcontainer}> */}
       <Text style={styles.title}>AuViS</Text>
-      {/* </View>
-      <View style={styles.inputcontainer}> */}
       <TextInput
         style={[styles.input, isIdInputEmpty ? styles.empty : styles.filled]} // 변경된 코드
         placeholder="ID"
@@ -104,13 +101,16 @@ const Login = ({ successLogin, signup_show }) => {
         onChangeText={handlePasswordChange}
         value={password}
       />
-      {/* </View> */}
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={signup_show}>
-          <Text style={styles.buttonText}>회원가입</Text>
+          <View>
+            <Text style={styles.buttonText}>회원가입</Text>
+          </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>로그인</Text>
+          <View>
+            <Text style={styles.buttonText}>로그인</Text>
+          </View>
         </TouchableOpacity>
       </View>
     </View>
@@ -124,16 +124,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
     paddingTop: 300, // 추가된 스타일
-  },
-  startcontainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignContent: "center",
-  },
-  inputcontainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignContent: "center",
   },
   buttonContainer: {
     flex: 5,

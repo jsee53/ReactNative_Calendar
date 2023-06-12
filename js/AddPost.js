@@ -70,7 +70,7 @@ function AddPost({
               showAddPostModal();
             }}
           >
-            <Text>X</Text>
+            <Text style={styles.close}>X</Text>
           </TouchableOpacity>
           <Text>
             {format(new Date(selectedDate), "M월 d일 EEEE", { locale: ko })}
@@ -114,6 +114,9 @@ const styles = StyleSheet.create({
     width: 300,
     height: 200,
     padding: 20,
+  },
+  close: {
+    alignItems: "flex-end",
   },
   input: {
     borderWidth: 1,
