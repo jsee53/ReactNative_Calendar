@@ -4,12 +4,7 @@ import { Provider } from "react-redux";
 import store from "./Store";
 import Profile from "./Profile";
 
-const Bar = () => {
-  const today = new Date();
-
-  const [selectedYear, setSelectedYear] = useState(today.getFullYear());
-  const [selectedMonth, setSelectedMonth] = useState(today.getMonth() + 1);
-
+const Bar = ({ month, year }) => {
   // 프로필 모달 표시 여부
   const [isProfileVisible, setIsProfileVisible] = useState(false);
   // 프로필 클릭 이벤트 처리 함수
@@ -28,7 +23,7 @@ const Bar = () => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.selectmonth}>
           <Text style={styles.label}>
-            {selectedYear}년 {selectedMonth}월
+            {year}년 {month}월
           </Text>
         </TouchableOpacity>
       </View>

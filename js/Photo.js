@@ -121,13 +121,19 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <TouchableOpacity
-            onPress={() => {
-              showPhotoModal();
-            }}
-          >
-            <Text>X</Text>
-          </TouchableOpacity>
+          <View style={styles.closelocation}>
+            <TouchableOpacity
+              style={styles.close}
+              onPress={() => {
+                showPhotoModal();
+              }}
+            >
+              <Image
+                source={require("../favicon/X.png")}
+                style={styles.closetxt}
+              />
+            </TouchableOpacity>
+          </View>
           {saveImage && (
             <Image
               source={{ uri: saveImage }}
@@ -152,9 +158,11 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
             value={endDay}
             onChangeText={setEndDay}
           />
-          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>제출</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonlocation}>
+            <TouchableOpacity style={styles.addButton} onPress={handleSubmit}>
+              <Text style={styles.text}>제출</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>

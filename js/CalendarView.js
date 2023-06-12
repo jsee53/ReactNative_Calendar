@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  ScrollView,
+} from "react-native";
 import { Calendar } from "react-native-calendars";
-import { format } from "date-fns";
+import { format, setYear } from "date-fns";
 import Schedule from "./Schedule";
 import BottomBar from "./BottomBar";
 import { useSelector } from "react-redux";
 import { Provider } from "react-redux";
 import store from "./Store";
+import Bar from "./Bar";
 
 function CalendarView() {
+  const [month, setMonth] = useState(new Date().getMonth() + 1); //해당 달력의 년도
+  const [year, setYear] = useState(new Date().getFullYear()); //해당 달력의 월
+
   const [selectedDate, setSelectedDate] = useState(
     format(new Date(), "yyyy-MM-dd")
   );
@@ -19,47 +29,10 @@ function CalendarView() {
   };
 
   const id_key = useSelector((state) => state.idKey); // 로그인한 사용자의 id_key
+  const [scheduleTitle, setScheduleTitle] = useState([]); //사용자의 일정 제목
   const [scheduleStartData, setScheduleStartData] = useState([]); //사용자의 일정 시작 날짜
   const [scheduleEndData, setScheduleEndData] = useState([]); //사용자의 일정 종료 날짜
-
-  //일정 바 랜덤 색상
-  const getRandomColor = () => {
-    const colors = [
-      "lightblue",
-      "lightskyblue",
-      "mediumaquamarine",
-      "palegreen",
-      "mediumspringgreen",
-      "limegreen",
-      "lightgreen",
-      "mediumseagreen",
-      "lightsteelblue",
-      "paleturquoise",
-      "mediumturquoise",
-      "aquamarine",
-      "lightyellow",
-      "palegoldenrod",
-      "khaki",
-      "lemonchiffon",
-      "lightpink",
-      "lightcoral",
-      "lightsalmon",
-      "peachpuff",
-      "lightgoldenrodyellow",
-      "moccasin",
-      "pink",
-      "lavenderblush",
-      "thistle",
-      "plum",
-      "mediumorchid",
-      "mediumvioletred",
-      "lavender",
-      "cornflowerblue",
-    ];
-
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-  };
+  const [scheduleColor, setScheduleColor] = useState([]); //사용자의 일정 색상
 
   useEffect(() => {
     const fetchData = () => {
@@ -85,10 +58,12 @@ function CalendarView() {
         })
         .then((data) => {
           if (Array.isArray(data) && data.length > 0) {
+            setScheduleTitle(data.map((item) => item.title));
             setScheduleStartData(
               data.map((item) => item.start_date.split("T")[0])
             );
             setScheduleEndData(data.map((item) => item.end_date.split("T")[0]));
+            setScheduleColor(data.map((item) => item.color));
           }
         })
         .catch((error) => {
@@ -101,26 +76,26 @@ function CalendarView() {
   const markedDates = scheduleStartData.reduce((acc, current, index) => {
     const startDate = current;
     const endDate = scheduleEndData[index];
-    let randomColor = getRandomColor();
+    const color = scheduleColor[index]; // 수정된 부분
 
     const startPeriod = {
       startingDay: true,
       endingDay: false,
-      color: randomColor,
+      color: color,
       textColor: "white",
     };
 
     const period = {
       startingDay: false,
       endingDay: false,
-      color: randomColor,
+      color: color,
       textColor: "white",
     };
 
     const endPeriod = {
       startingDay: false,
       endingDay: true,
-      color: randomColor,
+      color: color,
       textColor: "white",
     };
 
@@ -140,7 +115,7 @@ function CalendarView() {
         const formattedDate = format(currentDate, "yyyy-MM-dd");
         const dayObj = acc[formattedDate] || {}; // 날짜 객체 가져오기
         const periods = dayObj.periods || []; // periods 배열 가져오기
-        periods.push({ ...period, color: randomColor }); // periods에 상태 추가
+        periods.push({ ...period, color: color }); // periods에 상태 추가
         dayObj.periods = periods; // 날짜 객체에 periods 배열 설정
         acc[formattedDate] = dayObj; // 수정된 날짜 객체를 markedDates 객체에 할당
         currentDate.setDate(currentDate.getDate() + 1);
@@ -161,7 +136,8 @@ function CalendarView() {
   }, {});
 
   return (
-    <View style={styles.container}>
+    <View>
+      <Bar month={month} year={year} />
       <Calendar
         style={{
           marginTop: 0,
@@ -183,6 +159,10 @@ function CalendarView() {
           setIsVisible(true); //선택한 날짜의 Schedule 컴포넌트를 보여줌
         }}
         monthFormat={""}
+        onMonthChange={(month) => {
+          setMonth(month.month);
+          setYear(month.year);
+        }}
         // 기본 화살표를 커스텀화살표로 대체 (방향은 '왼쪽'이나 '오른쪽')
         renderArrow={(direction) => (
           <Text>{direction === "left" ? "<" : ">"}</Text>
@@ -190,6 +170,26 @@ function CalendarView() {
         // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
         hideExtraDays={true}
       />
+
+      <ScrollView style={{ marginTop: -200, maxHeight: 200 }}>
+        {scheduleStartData
+          .map((startDate, index) => ({
+            startDate,
+            title: scheduleTitle[index],
+            endDate: scheduleEndData[index],
+            color: scheduleColor[index],
+          }))
+          .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+          .map((schedule, index) => (
+            <View key={index} style={styles.scheduleItem}>
+              <View style={[styles.bar, { backgroundColor: schedule.color }]} />
+              <Text
+                style={styles.scheduleText}
+              >{`${schedule.startDate} ~ ${schedule.endDate} : ${schedule.title}`}</Text>
+            </View>
+          ))}
+      </ScrollView>
+
       <Provider store={store}>
         <View>
           <Schedule
@@ -205,8 +205,19 @@ function CalendarView() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 0,
+  scheduleItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  bar: {
+    width: 10,
+    height: 10,
+    marginRight: 10,
+    borderRadius: 5,
+  },
+  scheduleText: {
+    fontSize: 16,
   },
 });
 

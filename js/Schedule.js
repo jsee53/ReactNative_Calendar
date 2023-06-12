@@ -34,42 +34,8 @@ function Schedule({ isVisible, showModal, selectedDate }) {
     showUpdatePostModal();
   };
 
-  //제목 앞에 보여질 랜덤 색상
-  const getRandomColor = () => {
-    const colors = [
-      "lightblue",
-      "lightskyblue",
-      "mediumaquamarine",
-      "palegreen",
-      "mediumspringgreen",
-      "limegreen",
-      "lightgreen",
-      "mediumseagreen",
-      "lightsteelblue",
-      "paleturquoise",
-      "mediumturquoise",
-      "aquamarine",
-      "lightyellow",
-      "palegoldenrod",
-      "khaki",
-      "lemonchiffon",
-      "lightpink",
-      "lightcoral",
-      "lightsalmon",
-      "peachpuff",
-      "lightgoldenrodyellow",
-      "moccasin",
-      "pink",
-      "lavenderblush",
-      "thistle",
-      "plum",
-      "mediumorchid",
-      "mediumvioletred",
-      "lavender",
-      "cornflowerblue",
-    ];
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
+  const handleDeleted = () => {
+    setSelectedScheduleId(0);
   };
 
   useEffect(() => {
@@ -103,6 +69,7 @@ function Schedule({ isVisible, showModal, selectedDate }) {
           const scheduleData = data.schedule.map((schedule) => ({
             title: schedule.title,
             id: schedule.schedule_id,
+            color: schedule.color,
           }));
           setScheduleData(scheduleData);
         });
@@ -138,7 +105,7 @@ function Schedule({ isVisible, showModal, selectedDate }) {
                 onPress={() => handleTitleClick(scheduleItem.id)}
               >
                 <Text>
-                  <Icon name="circle" size={16} color={getRandomColor()} />
+                  <Icon name="circle" size={16} color={scheduleItem.color} />
                   {scheduleItem.title}
                 </Text>
               </TouchableOpacity>
@@ -165,6 +132,7 @@ function Schedule({ isVisible, showModal, selectedDate }) {
             showModal={showModal}
             showUpdatePostModal={showUpdatePostModal}
             selectedScheduleId={selectedScheduleId}
+            onDeleted={handleDeleted}
           />
         </View>
       </View>

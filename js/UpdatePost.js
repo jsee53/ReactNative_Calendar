@@ -7,6 +7,7 @@ import {
   TextInput,
 } from "react-native";
 import { Modal } from "react-native";
+import { Image } from "react-native";
 
 //일정 추가 모달 컴포넌트
 function UpdatePost({
@@ -14,18 +15,18 @@ function UpdatePost({
   showModal,
   showUpdatePostModal,
   selectedScheduleId,
+  onDeleted,
 }) {
   const [postTitle, setPostTitle] = useState(""); // 일정 제목 상태 관리
   const [startDay, setStartDay] = useState(""); // 일정 시작 날짜
   const [endDay, setEndDay] = useState(""); // 일정 종료 날짜
-  const [scheduleId, setScheduleId] = useState(selectedScheduleId); // 일정 key
+  const [image, setImage] = useState(""); // 포스터 이미지
 
   useEffect(() => {
-    console.log(scheduleId);
-    if (scheduleId !== 0) {
+    if (selectedScheduleId !== 0) {
       // 만약 selectedScheduleId가 0이 아니라면
       const DateData = {
-        title_key: scheduleId,
+        title_key: selectedScheduleId,
       };
 
       // 서버로 전송할 데이터 객체(아이디, 제목, 날짜)
@@ -49,6 +50,7 @@ function UpdatePost({
           setPostTitle(data.title);
           setStartDay(data.start_date.split("T")[0]);
           setEndDay(data.end_date.split("T")[0]);
+          setImage(`data:image/png;base64,${data.image}`); // 이미지 디코딩
         })
         .catch((error) => {
           console.error("선택 일정 불러오기 오류!", error);
@@ -58,7 +60,7 @@ function UpdatePost({
 
   const handleSubmit = () => {
     const DateData = {
-      title_key: scheduleId,
+      title_key: selectedScheduleId,
       title: postTitle,
       startDay: startDay,
       endDay: endDay,
@@ -82,9 +84,9 @@ function UpdatePost({
         alert("일정 수정 실패!");
       }
     });
-    setScheduleId(0);
+
     // 전송 후 모달 창 닫음
-    showUpdatePostModal, showUpdatePostModal();
+    showUpdatePostModal();
     showModal();
   };
 
@@ -112,9 +114,9 @@ function UpdatePost({
       }
     });
 
-    setScheduleId(0);
+    onDeleted();
     // 전송 후 모달 창 닫음
-    showUpdatePostModal, showUpdatePostModal();
+    showUpdatePostModal();
     showModal();
   };
 
@@ -135,21 +137,19 @@ function UpdatePost({
           >
             <Text>X</Text>
           </TouchableOpacity>
+          <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />
           <TextInput
             style={styles.input}
-            placeholder="일정 제목"
             value={postTitle}
             onChangeText={setPostTitle}
           />
           <TextInput
             style={styles.input}
-            placeholder="일정 시작날짜"
             value={startDay}
             onChangeText={setStartDay}
           />
           <TextInput
             style={styles.input}
-            placeholder="일정 종료날짜"
             value={endDay}
             onChangeText={setEndDay}
           />
