@@ -23,12 +23,43 @@ function AddPost({
   const [endDay, setEndDay] = useState(""); // 일정 종료 날짜
   const id_key = useSelector((state) => state.idKey); // 로그인한 사용자의 id_key
 
+  //일정 바 랜덤 색상
+  const getRandomColor = () => {
+    const colors = [
+      "#E57373", // 빨강
+      "#F06292", // 분홍
+      "#BA68C8", // 보라
+      "#9575CD", // 진보라
+      "#7986CB", // 남색
+      "#64B5F6", // 파랑
+      "#4FC3F7", // 연한 파랑
+      "#4DD0E1", // 청록
+      "#4DB6AC", // 틸
+      "#81C784", // 초록
+      "#AED581", // 연한 초록
+      "#DCE775", // 라임
+      "#FFF176", // 노랑
+      "#FFD54F", // 황갈색
+      "#FFB74D", // 주황
+      "#FF8A65", // 진한 주황
+      "#A1887F", // 갈색
+      "#90A4AE", // 청회색
+      "#D7CCC8", // 회색
+    ];
+
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  };
+  const [color, setColor] = useState(getRandomColor()); // 일정 색상
+
   const handleSubmit = () => {
+    setColor(getRandomColor());
     const DateData = {
       id_key: id_key,
       title: postTitle,
       startDay: startDay,
       endDay: endDay,
+      color: color,
     };
 
     // 서버로 전송할 데이터 객체(아이디, 제목, 날짜)

@@ -54,6 +54,12 @@ const Signup = ({ successLogin, signup_show }) => {
   };
 
   const handleSignup = () => {
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // yyyy-mm-dd 형식의 정규식
+    if (!dateRegex.test(birthDate)) {
+      alert("생년월일 형식을 확인해주세요.");
+      return;
+    }
+
     const userData = {
       id: id,
       password: password,
@@ -90,7 +96,7 @@ const Signup = ({ successLogin, signup_show }) => {
           successLogin(data.successSignup);
         } else {
           //회원가입 실패 시
-          alert("회원가입 실패!");
+          alert(data.message);
         }
       });
   };

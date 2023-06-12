@@ -18,6 +18,35 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
   const [startDay, setStartDay] = useState("");
   const [endDay, setEndDay] = useState("");
 
+  //일정 바 랜덤 색상
+  const getRandomColor = () => {
+    const colors = [
+      "#E57373", // 빨강
+      "#F06292", // 분홍
+      "#BA68C8", // 보라
+      "#9575CD", // 진보라
+      "#7986CB", // 남색
+      "#64B5F6", // 파랑
+      "#4FC3F7", // 연한 파랑
+      "#4DD0E1", // 청록
+      "#4DB6AC", // 틸
+      "#81C784", // 초록
+      "#AED581", // 연한 초록
+      "#DCE775", // 라임
+      "#FFF176", // 노랑
+      "#FFD54F", // 황갈색
+      "#FFB74D", // 주황
+      "#FF8A65", // 진한 주황
+      "#A1887F", // 갈색
+      "#90A4AE", // 청회색
+      "#D7CCC8", // 회색
+    ];
+
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  };
+  const [color, setColor] = useState(getRandomColor()); // 일정 색상
+
   //사진을 서버로 보내고 제목과 일정을 받아옴
   useEffect(() => {
     if (isPhotoVisible) {
@@ -82,6 +111,7 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
               title: title,
               startDay: startDay,
               endDay: endDay,
+              color: color,
             };
 
             const postData = {
@@ -136,19 +166,16 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
           )}
           <TextInput
             style={styles.input}
-            placeholder="일정 제목"
             value={title}
             onChangeText={setTitle}
           />
           <TextInput
             style={styles.input}
-            placeholder="일정 시작날짜"
             value={startDay}
             onChangeText={setStartDay}
           />
           <TextInput
             style={styles.input}
-            placeholder="일정 종료날짜"
             value={endDay}
             onChangeText={setEndDay}
           />
