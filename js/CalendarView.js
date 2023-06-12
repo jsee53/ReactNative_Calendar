@@ -151,7 +151,7 @@ function CalendarView() {
           textSectionTitleColor: "black", //월 ~ 일요일 색상
           selectedDayTextColor: "#004898", //선택된 날짜 글자 색상
           todayTextColor: "#004898", //오늘 날짜 글자 색상
-          dayTextColor: "#404040", //일반 날짜 글자 색상
+          dayTextColor: "grey", //일반 날짜 글자 색상
         }}
         //날짜 선택시 실행될 함수
         onDayPress={(day) => {
