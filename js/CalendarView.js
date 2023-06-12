@@ -5,6 +5,8 @@ import { format } from "date-fns";
 import Schedule from "./Schedule";
 import BottomBar from "./BottomBar";
 import { useSelector } from "react-redux";
+import { Provider } from "react-redux";
+import store from "./Store";
 
 function CalendarView() {
   const [selectedDate, setSelectedDate] = useState(
@@ -189,13 +191,15 @@ function CalendarView() {
         // // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
         hideExtraDays={true}
       />
-      <View>
-        <Schedule
-          isVisible={isVisible}
-          showModal={showModal}
-          selectedDate={selectedDate}
-        />
-      </View>
+      <Provider store={store}>
+        <View>
+          <Schedule
+            isVisible={isVisible}
+            showModal={showModal}
+            selectedDate={selectedDate}
+          />
+        </View>
+      </Provider>
       <BottomBar />
     </View>
   );

@@ -7,7 +7,6 @@ import {
   TextInput,
 } from "react-native";
 import { Modal } from "react-native";
-import { useSelector } from "react-redux";
 
 //일정 추가 모달 컴포넌트
 function UpdatePost({
@@ -19,13 +18,14 @@ function UpdatePost({
   const [postTitle, setPostTitle] = useState(""); // 일정 제목 상태 관리
   const [startDay, setStartDay] = useState(""); // 일정 시작 날짜
   const [endDay, setEndDay] = useState(""); // 일정 종료 날짜
-  const id_key = useSelector((state) => state.idKey); // 로그인한 사용자의 id_key
+  const [scheduleId, setScheduleId] = useState(selectedScheduleId); // 일정 key
 
   useEffect(() => {
-    if (selectedScheduleId !== 0) {
+    console.log(scheduleId);
+    if (scheduleId !== 0) {
       // 만약 selectedScheduleId가 0이 아니라면
       const DateData = {
-        title_key: selectedScheduleId,
+        title_key: scheduleId,
       };
 
       // 서버로 전송할 데이터 객체(아이디, 제목, 날짜)
@@ -58,7 +58,7 @@ function UpdatePost({
 
   const handleSubmit = () => {
     const DateData = {
-      id_key: id_key,
+      title_key: scheduleId,
       title: postTitle,
       startDay: startDay,
       endDay: endDay,
@@ -82,7 +82,37 @@ function UpdatePost({
         alert("일정 수정 실패!");
       }
     });
+    setScheduleId(0);
+    // 전송 후 모달 창 닫음
+    showUpdatePostModal, showUpdatePostModal();
+    showModal();
+  };
 
+  const handleDeleteSubmit = () => {
+    const DateData = {
+      title_key: selectedScheduleId,
+    };
+
+    // 서버로 전송할 데이터 객체(아이디, 제목, 날짜)
+    const postData = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(DateData),
+    };
+
+    fetch("http://127.0.0.1:8000/deletepost", postData).then((response) => {
+      if (response.ok) {
+        // 요청이 성공한 경우
+        return response.json(); // JSON 형식으로 변환된 응답 반환
+      } else {
+        // 요청이 실패한 경우
+        alert("일정 삭제 실패!");
+      }
+    });
+
+    setScheduleId(0);
     // 전송 후 모달 창 닫음
     showUpdatePostModal, showUpdatePostModal();
     showModal();
@@ -124,7 +154,10 @@ function UpdatePost({
             onChangeText={setEndDay}
           />
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>제출</Text>
+            <Text style={styles.buttonText}>수정</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handleDeleteSubmit}>
+            <Text style={styles.buttonText}>삭제</Text>
           </TouchableOpacity>
         </View>
       </View>
