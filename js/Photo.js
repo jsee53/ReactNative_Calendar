@@ -141,26 +141,29 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
             />
           )}
           <TextInput
-            style={styles.input}
+            style={[styles.input, { marginTop: 38, marginBottom: 5 }]}
             placeholder="일정 제목"
+            placeholderTextColor="#bbbbbb"
             value={title}
             onChangeText={setTitle}
           />
           <TextInput
-            style={styles.input}
+            style={[styles.input, { marginBottom: -3 }]}
             placeholder="일정 시작날짜"
+            placeholderTextColor="#bbbbbb"
             value={startDay}
             onChangeText={setStartDay}
           />
           <TextInput
-            style={styles.input}
+            style={[styles.input, { marginBottom: 0 }]}
             placeholder="일정 종료날짜"
+            placeholderTextColor="#bbbbbb"
             value={endDay}
             onChangeText={setEndDay}
           />
           <View style={styles.buttonlocation}>
             <TouchableOpacity style={styles.addButton} onPress={handleSubmit}>
-              <Text style={styles.text}>제출</Text>
+              <Text style={styles.text}>등록</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -186,19 +189,47 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#004898",
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "gray",
-    marginBottom: 10,
-    padding: 5,
+  closelocation: {
+    justifyContent: "flex-start",
+    alignItems: "flex-end",
   },
-  button: {
-    backgroundColor: "lightblue",
-    padding: 10,
+  close: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
     alignItems: "center",
   },
-  buttonText: {
-    fontWeight: "bold",
+  closetxt: {
+    width: 12,
+    height: 12,
+  },
+  input: {
+    width: 250,
+    borderWidth: 1,
+    borderRadius: 5,
+    marginTop: 15,
+    padding: 8,
+    marginLeft: 15,
+  },
+  buttonlocation: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+  },
+  addButton: {
+    width: 77,
+    height: 30,
+    backgroundColor: "#004898",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+    marginTop: 20,
+    marginHorizontal: 10,
+  },
+  text: {
+    color: "white",
+    fontSize: 12,
+    fontWeight: "600",
   },
 });
 

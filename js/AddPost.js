@@ -114,13 +114,7 @@ function AddPost({
             {format(new Date(selectedDate), "M월 d일 EEEE", { locale: ko })}
           </Text>
           <TextInput
-            style={[
-              styles.input,
-              {
-                marginBottom: 50,
-                textAlignVertical: "center", // placeholder 박스 수평 가운데 정렬
-              }, // 첫 번째 placeholder 간격 조정
-            ]}
+            style={[styles.input, { marginBottom: 50 }]}
             placeholder="제목"
             placeholderTextColor="#bbbbbb"
             value={postTitle}
@@ -177,6 +171,10 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: "center",
     alignItems: "center",
+  },
+  closetxt: {
+    width: 12,
+    height: 12,
   },
   day: {
     marginLeft: 20,

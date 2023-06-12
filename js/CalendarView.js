@@ -149,9 +149,9 @@ function CalendarView() {
         theme={{
           calendarBackground: "white", //캘린더 배경색
           textSectionTitleColor: "black", //월 ~ 일요일 색상
-          selectedDayTextColor: "blue", //선택된 날짜 글자 색상
-          todayTextColor: "blue", //오늘 날짜 글자 색상
-          dayTextColor: "black", //일반 날짜 글자 색상
+          selectedDayTextColor: "#004898", //선택된 날짜 글자 색상
+          todayTextColor: "#004898", //오늘 날짜 글자 색상
+          dayTextColor: "#404040", //일반 날짜 글자 색상
         }}
         //날짜 선택시 실행될 함수
         onDayPress={(day) => {
@@ -168,7 +168,7 @@ function CalendarView() {
           <Text>{direction === "left" ? "<" : ">"}</Text>
         )}
         // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
-        hideExtraDays={true}
+        hideExtraDays={false}
       />
 
       <ScrollView style={{ marginTop: -200, maxHeight: 200 }}>
