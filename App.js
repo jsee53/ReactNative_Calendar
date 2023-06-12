@@ -23,9 +23,9 @@ const App = () => {
 
   return (
     <View>
+      <StatusBar barStyle="dark-content" />
       {login ? (
         <View>
-          <StatusBar style="auto" />
           <Bar />
           <Provider store={store}>
             <CalendarView />

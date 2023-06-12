@@ -170,9 +170,13 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: "white",
-    width: 300,
-    height: 200,
+    width: 330,
+    height: 500,
     padding: 20,
+    marginTop: 270,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#004898",
   },
   input: {
     borderWidth: 1,
