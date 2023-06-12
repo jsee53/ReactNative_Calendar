@@ -63,13 +63,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    height: 60,
+    height: 120,
     width: 393,
     backgroundColor: "#F5F5F5",
   },
   leftContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 50,
   },
   selectmonth: {
     marginLeft: 10,
@@ -83,6 +84,7 @@ const styles = StyleSheet.create({
   rightContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 50,
   },
   icon: {
     width: 24,

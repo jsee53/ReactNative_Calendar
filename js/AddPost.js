@@ -104,8 +104,8 @@ function AddPost({
 
 const styles = StyleSheet.create({
   modalContainer: {
-    height: 250,
-    width: 300,
+    height: 600,
+    width: 400,
     justifyContent: "center",
     alignItems: "center",
   },

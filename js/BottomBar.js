@@ -76,25 +76,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 16,
-    height: 100,
+    height: 140,
     width: 393,
     backgroundColor: "#004898", // 하단바 배경색
+    marginTop: 30,
   },
   leftContainer: {
-    height: 60,
+    height: 80,
     width: 195.5,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center", // 왼쪽 정렬
-    paddingBottom: 25,
+    paddingBottom: 70,
   },
   rightContainer: {
-    height: 60,
+    height: 80,
     width: 195.5,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center", // 오른쪽 정렬
-    paddingBottom: 25,
+    paddingBottom: 70,
   },
   icon: {
     width: 24, // 이미지 너비

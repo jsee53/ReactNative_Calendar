@@ -9,31 +9,6 @@ import { Provider } from "react-redux";
 import store from "./Store";
 
 function CalendarView() {
-  const customRenderDay = (day) => {
-    const isToday = day.dateString === format(new Date(), "yyyy-MM-dd");
-    const isSelected = day.dateString === selectedDate;
-
-    let backgroundColor = isToday ? "lightblue" : "white";
-    if (isSelected) {
-      backgroundColor = "blue";
-    }
-
-    return (
-      <View
-        style={[
-          {
-            justifyContent: "center",
-            alignItems: "center",
-            height: 500,
-            backgroundColor: backgroundColor,
-          },
-        ]}
-      >
-        <Text style={styles.dayText}>{day.day}</Text>
-      </View>
-    );
-  };
-
   const [selectedDate, setSelectedDate] = useState(
     format(new Date(), "yyyy-MM-dd")
   );
@@ -186,10 +161,8 @@ function CalendarView() {
   }, {});
 
   return (
-    <View>
+    <View style={styles.container}>
       <Calendar
-        renderDay={customRenderDay}
-        customRenderDay={customRenderDay} // 날짜 박스 컴포넌트를 커스텀
         style={{
           marginTop: 0,
           height: 600,
@@ -232,8 +205,8 @@ function CalendarView() {
 }
 
 const styles = StyleSheet.create({
-  dayText: {
-    color: "black",
+  container: {
+    marginTop: 0,
   },
 });
 
