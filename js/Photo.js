@@ -205,7 +205,7 @@ function Photo({ isPhotoVisible, showPhotoModal, image, refresh }) {
               />
             </TouchableOpacity>
           </View>
-          <View style={styles.imgcontainer}>
+          <View>
             {saveImage && (
               <Image
                 source={{ uri: saveImage }}

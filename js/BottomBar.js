@@ -19,19 +19,19 @@ const BottomBar = ({ refresh }) => {
   const handleSubmitGallery = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
         aspect: [4, 3],
-        quality: 1,
+        quality: 0.7,
         base64: true,
       });
+
       if (!result.canceled) {
         // 사진이 입력되었을 경우에만 showPhotoModal() 실행
         setImage(result);
         showPhotoModal();
       }
     } catch (error) {
-      Alert.alert("Error", "Failed to pick an image.");
+      Alert.alert("이미지 처리 실패!");
     }
   };
 
@@ -39,25 +39,23 @@ const BottomBar = ({ refresh }) => {
     try {
       let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
       if (permissionResult.granted === false) {
-        Alert.alert("Permission Denied", "Access to camera was denied.");
+        Alert.alert("카메라 권한을 허용해주세요.");
         return;
       }
 
       let result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
         aspect: [4, 3],
-        quality: 1,
+        quality: 0.5,
         base64: true,
       });
-
       if (!result.canceled) {
         // 사진이 입력되었을 경우에만 showPhotoModal() 실행
         setImage(result);
         showPhotoModal();
       }
     } catch (error) {
-      Alert.alert("Error", "Failed to take a photo.");
+      Alert.alert("이미지 처리 실패!");
     }
   };
 
