@@ -10,6 +10,7 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 import { setIdKey } from "./Store";
 
 const Login = ({ successLogin, signup_show }) => {
+  const ipAddress = useSelector((state) => state.ipAddress);
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [isIdInputEmpty, setIdInputEmpty] = useState(true); // 추가된 코드
@@ -44,7 +45,7 @@ const Login = ({ successLogin, signup_show }) => {
       body: JSON.stringify(userData),
     };
 
-    fetch("http://127.0.0.1:8000/login", postData)
+    fetch(`http://${ipAddress}:8000/login`, postData)
       .then((response) => {
         if (response.ok) {
           // 요청이 성공한 경우
@@ -60,7 +61,7 @@ const Login = ({ successLogin, signup_show }) => {
           successLogin(data.login_result);
           dispatch(setIdKey(data.id_key)); //로그인 한 사용자의 id_key 값을 저장
         } else {
-          alert("아이디 또는 비밀번호 오류!!");
+          alert("아이디 또는 비밀번호가 틀립니다!");
         }
       })
       .catch((error) => {

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Modal } from "react-native";
 
 const Profile = ({ isProfileVisible, handleProfile }) => {
+  const ipAddress = useSelector((state) => state.ipAddress);
   const id_key = useSelector((state) => state.idKey); // 로그인한 사용자의 id_key
   const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
@@ -24,7 +25,7 @@ const Profile = ({ isProfileVisible, handleProfile }) => {
         body: JSON.stringify(userData),
       };
 
-      fetch("http://127.0.0.1:8000/profile", postData)
+      fetch(`http://${ipAddress}:8000/profile`, postData)
         .then((response) => {
           if (response.ok) {
             return response.json();

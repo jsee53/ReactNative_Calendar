@@ -8,8 +8,10 @@ import {
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { setIdKey } from "./Store";
+import { useSelector } from "react-redux";
 
 const Signup = ({ successLogin, signup_show }) => {
+  const ipAddress = useSelector((state) => state.ipAddress);
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -54,9 +56,21 @@ const Signup = ({ successLogin, signup_show }) => {
   };
 
   const handleSignup = () => {
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // yyyy-mm-dd 형식의 정규식
-    if (!dateRegex.test(birthDate)) {
+    const dateRegex = /^(\d{4})(\d{2})(\d{2})$/; // yyyyMMdd 또는 yyyy-mm-dd 형식의 정규식
+    const validFormat = dateRegex.test(birthDate);
+
+    if (!validFormat) {
       alert("생년월일 형식을 확인해주세요.");
+      return;
+    }
+
+    const [_, year, month, day] = dateRegex.exec(birthDate);
+    const formattedBirthDate = `${year}-${month}-${day}`;
+
+    const isValidDate = !isNaN(Date.parse(formattedBirthDate));
+
+    if (!isValidDate) {
+      alert("올바른 날짜 형식이 아닙니다.");
       return;
     }
 
@@ -77,7 +91,7 @@ const Signup = ({ successLogin, signup_show }) => {
       body: JSON.stringify(userData),
     };
 
-    fetch("http://127.0.0.1:8000/signup", postData)
+    fetch(`http://${ipAddress}:8000/signup`, postData)
       .then((response) => {
         if (response.ok) {
           // 요청이 성공한 경우

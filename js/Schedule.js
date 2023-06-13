@@ -12,6 +12,7 @@ import UpdatePost from "./UpdatePost";
 
 //일정 클릭 시 일정을 보여주는 모달 컴포넌트
 function Schedule({ isVisible, showModal, selectedDate }) {
+  const ipAddress = useSelector((state) => state.ipAddress);
   const [isAddPostVisible, setIsAddPostVisible] = useState(false); //날짜 클릭시 일정 모달 창 보여주기
   const [scheduleData, setScheduleData] = useState([]);
   const [selectedScheduleId, setSelectedScheduleId] = useState(0);
@@ -54,7 +55,7 @@ function Schedule({ isVisible, showModal, selectedDate }) {
         body: JSON.stringify(scheduleData),
       };
 
-      fetch("http://127.0.0.1:8000/schedule", postData)
+      fetch(`http://${ipAddress}:8000/schedule`, postData)
         .then((response) => {
           if (response.ok) {
             // 요청이 성공한 경우

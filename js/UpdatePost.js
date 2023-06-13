@@ -9,6 +9,7 @@ import {
 import { Modal } from "react-native";
 import { Image } from "react-native";
 import moment from "moment";
+import { useSelector } from "react-redux";
 
 //일정 추가 모달 컴포넌트
 function UpdatePost({
@@ -18,6 +19,7 @@ function UpdatePost({
   selectedScheduleId,
   onDeleted,
 }) {
+  const ipAddress = useSelector((state) => state.ipAddress);
   const [postTitle, setPostTitle] = useState(""); // 일정 제목 상태 관리
   const [startDay, setStartDay] = useState(""); // 일정 시작 날짜
   const [endDay, setEndDay] = useState(""); // 일정 종료 날짜
@@ -39,7 +41,7 @@ function UpdatePost({
         body: JSON.stringify(DateData),
       };
 
-      fetch("http://127.0.0.1:8000/updatepost", postData)
+      fetch(`http://${ipAddress}:8000/updatepost`, postData)
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -118,15 +120,17 @@ function UpdatePost({
       body: JSON.stringify(DateData),
     };
 
-    fetch("http://127.0.0.1:8000/updateresult", postData).then((response) => {
-      if (response.ok) {
-        // 요청이 성공한 경우
-        return response.json(); // JSON 형식으로 변환된 응답 반환
-      } else {
-        // 요청이 실패한 경우
-        alert("일정 수정 실패!");
+    fetch(`http://${ipAddress}:8000/updateresult`, postData).then(
+      (response) => {
+        if (response.ok) {
+          // 요청이 성공한 경우
+          return response.json(); // JSON 형식으로 변환된 응답 반환
+        } else {
+          // 요청이 실패한 경우
+          alert("일정 수정 실패!");
+        }
       }
-    });
+    );
 
     // 전송 후 모달 창 닫음
     showUpdatePostModal();
@@ -147,7 +151,7 @@ function UpdatePost({
       body: JSON.stringify(DateData),
     };
 
-    fetch("http://127.0.0.1:8000/deletepost", postData).then((response) => {
+    fetch(`http://${ipAddress}:8000/deletepost`, postData).then((response) => {
       if (response.ok) {
         // 요청이 성공한 경우
         return response.json(); // JSON 형식으로 변환된 응답 반환
