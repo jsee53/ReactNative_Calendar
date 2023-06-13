@@ -41,8 +41,12 @@ const BottomBar = ({ refresh }) => {
         quality: 1,
         base64: true,
       });
-      setImage(result);
-      showPhotoModal();
+
+      if (!result.canceled) {
+        // 사진이 입력되었을 경우에만 showPhotoModal() 실행
+        setImage(result);
+        showPhotoModal();
+      }
     } catch (error) {
       Alert.alert("Error", "Failed to take a photo.");
     }
