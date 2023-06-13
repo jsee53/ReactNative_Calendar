@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     height: 107,
     width: 393,
     backgroundColor: "#004898", // 하단바 배경색
-    marginTop: 215,
+    marginTop: 50,
   },
   leftContainer: {
     height: 80,

@@ -102,13 +102,21 @@ function Schedule({ isVisible, showModal, selectedDate }) {
           ) : (
             scheduleData.map((scheduleItem, index) => (
               <TouchableOpacity
+                style={styles.schedule}
                 key={index}
                 onPress={() => handleTitleClick(scheduleItem.id)}
               >
-                <Text>
-                  <Icon name="circle" size={16} color={scheduleItem.color} />
-                  {scheduleItem.title}
-                </Text>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Icon
+                    name="circle"
+                    size={25}
+                    color={scheduleItem.color}
+                    style={{ marginRight: 10 }}
+                  />
+                  <Text style={{ fontSize: 15, fontWeight: 500 }}>
+                    {scheduleItem.title}
+                  </Text>
+                </View>
               </TouchableOpacity>
             ))
           )}
@@ -175,7 +183,7 @@ const styles = StyleSheet.create({
   day: {
     marginLeft: 20,
     paddingBottom: 20,
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: 500,
   },
   daysch: {
@@ -203,6 +211,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 12,
     fontWeight: "600",
+  },
+  schedule: {
+    margin: 15,
   },
 });
 
