@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, StatusBar } from "react-native";
-import Bar from "./js/Bar";
 import Login from "./js/Login";
 import CalendarView from "./js/CalendarView";
 import Signup from "./js/Signup";
