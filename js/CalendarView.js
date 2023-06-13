@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
 } from "react-native";
+import "../locales/ko";
 import { Calendar } from "react-native-calendars";
 import { format, setYear } from "date-fns";
 import Schedule from "./Schedule";
@@ -54,7 +55,7 @@ function CalendarView() {
         body: JSON.stringify(userData),
       };
 
-      fetch("http://127.0.0.1:8000/calendar", postData)
+      fetch("http://172.23.14.120/calendar", postData)
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -79,85 +80,94 @@ function CalendarView() {
     fetchData();
   }, [id_key, isVisible, refreshKey]);
 
-  const markedDates = scheduleStartData.reduce((acc, current, index) => {
-    const startDate = current;
-    const endDate = scheduleEndData[index];
-    const color = scheduleColor[index]; // 수정된 부분
+  const today = format(new Date(), "yyyy-MM-dd");
 
-    const startPeriod = {
-      startingDay: true,
-      endingDay: false,
-      color: color,
-      textColor: "white",
-    };
+  const markedDates = Object.assign(
+    {},
+    scheduleStartData.reduce((acc, current, index) => {
+      const startDate = current;
+      const endDate = scheduleEndData[index];
+      const color = scheduleColor[index]; // 수정된 부분
 
-    const period = {
-      startingDay: false,
-      endingDay: false,
-      color: color,
-      textColor: "white",
-    };
+      const startPeriod = {
+        startingDay: true,
+        endingDay: false,
+        color: color,
+        textColor: "white",
+      };
 
-    const endPeriod = {
-      startingDay: false,
-      endingDay: true,
-      color: color,
-      textColor: "white",
-    };
+      const period = {
+        startingDay: false,
+        endingDay: false,
+        color: color,
+        textColor: "white",
+      };
 
-    const startDayObj = acc[startDate] || {}; // 시작 날짜 객체 가져오기
-    const startPeriods = startDayObj.periods || []; // periods 배열 가져오기
+      const endPeriod = {
+        startingDay: false,
+        endingDay: true,
+        color: color,
+        textColor: "white",
+      };
 
-    if (startDate === endDate) {
-      // 시작 날짜와 종료 날짜가 같은 경우
-      startPeriods.push({ ...startPeriod, endingDay: true }); // periods에 시작/종료 날짜 상태 추가
-      startDayObj.periods = startPeriods; // 시작 날짜 객체에 periods 배열 설정
-      acc[startDate] = startDayObj; // 수정된 시작 날짜 객체를 markedDates 객체에 할당
-    } else {
-      let currentDate = new Date(startDate);
-      currentDate.setDate(currentDate.getDate() + 1);
+      const startDayObj = acc[startDate] || {}; // 시작 날짜 객체 가져오기
+      const startPeriods = startDayObj.periods || []; // periods 배열 가져오기
 
-      while (currentDate < new Date(endDate)) {
-        const formattedDate = format(currentDate, "yyyy-MM-dd");
-        const dayObj = acc[formattedDate] || {}; // 날짜 객체 가져오기
-        const periods = dayObj.periods || []; // periods 배열 가져오기
-        periods.push({ ...period, color: color }); // periods에 상태 추가
-        dayObj.periods = periods; // 날짜 객체에 periods 배열 설정
-        acc[formattedDate] = dayObj; // 수정된 날짜 객체를 markedDates 객체에 할당
+      if (startDate === endDate) {
+        // 시작 날짜와 종료 날짜가 같은 경우
+        startPeriods.push({ ...startPeriod, endingDay: true }); // periods에 시작/종료 날짜 상태 추가
+        startDayObj.periods = startPeriods; // 시작 날짜 객체에 periods 배열 설정
+        acc[startDate] = startDayObj; // 수정된 시작 날짜 객체를 markedDates 객체에 할당
+      } else {
+        let currentDate = new Date(startDate);
         currentDate.setDate(currentDate.getDate() + 1);
+
+        while (currentDate < new Date(endDate)) {
+          const formattedDate = format(currentDate, "yyyy-MM-dd");
+          const dayObj = acc[formattedDate] || {}; // 날짜 객체 가져오기
+          const periods = dayObj.periods || []; // periods 배열 가져오기
+          periods.push({ ...period, color: color }); // periods에 상태 추가
+          dayObj.periods = periods; // 날짜 객체에 periods 배열 설정
+          acc[formattedDate] = dayObj; // 수정된 날짜 객체를 markedDates 객체에 할당
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        const endDayObj = acc[endDate] || {}; // 종료 날짜 객체 가져오기
+        const endPeriods = endDayObj.periods || []; // periods 배열 가져오기
+        endPeriods.push(endPeriod); // periods에 종료 날짜 상태 추가
+        endDayObj.periods = endPeriods; // 종료 날짜 객체에 periods 배열 설정
+        acc[endDate] = endDayObj; // 수정된 종료 날짜 객체를 markedDates 객체에 할당
+
+        startPeriods.push(startPeriod); // periods에 시작 날짜 상태 추가
+        startDayObj.periods = startPeriods; // 시작 날짜 객체에 periods 배열 설정
+        acc[startDate] = startDayObj; // 수정된 시작 날짜 객체를 markedDates 객체에 할당
       }
 
-      const endDayObj = acc[endDate] || {}; // 종료 날짜 객체 가져오기
-      const endPeriods = endDayObj.periods || []; // periods 배열 가져오기
-      endPeriods.push(endPeriod); // periods에 종료 날짜 상태 추가
-      endDayObj.periods = endPeriods; // 종료 날짜 객체에 periods 배열 설정
-      acc[endDate] = endDayObj; // 수정된 종료 날짜 객체를 markedDates 객체에 할당
-
-      startPeriods.push(startPeriod); // periods에 시작 날짜 상태 추가
-      startDayObj.periods = startPeriods; // 시작 날짜 객체에 periods 배열 설정
-      acc[startDate] = startDayObj; // 수정된 시작 날짜 객체를 markedDates 객체에 할당
+      return acc;
+    }, {}),
+    {
+      [today]: {
+        selected: true,
+        selectedColor: "#004898",
+        textStyle: { fontWeight: "bold", color: "white" },
+      },
     }
-
-    return acc;
-  }, {});
+  );
 
   return (
     <View>
       <Bar month={month} year={year} />
       <Calendar
-        style={{
-          marginTop: 0,
-          height: 600,
-          width: 393,
-        }}
+        style={styles.calendar}
         markingType="multi-period"
         markedDates={markedDates}
         theme={{
           calendarBackground: "white", //캘린더 배경색
           textSectionTitleColor: "black", //월 ~ 일요일 색상
-          selectedDayTextColor: "#004898", //선택된 날짜 글자 색상
-          todayTextColor: "#004898", //오늘 날짜 글자 색상
+          selectedDayTextColor: "#ffffff", //선택된 날짜 글자 색상
+          todayTextColor: "#ffffff", //오늘 날짜 글자 색상
           dayTextColor: "grey", //일반 날짜 글자 색상
+          textDayHeaderFontWeight: "500",
         }}
         //날짜 선택시 실행될 함수
         onDayPress={(day) => {
@@ -171,7 +181,7 @@ function CalendarView() {
         }}
         // 기본 화살표를 커스텀화살표로 대체 (방향은 '왼쪽'이나 '오른쪽')
         renderArrow={(direction) => (
-          <Text>{direction === "left" ? "<" : ">"}</Text>
+          <Text style={styles.arrow}>{direction === "left" ? "<" : ">"}</Text>
         )}
         // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
         hideExtraDays={false}
@@ -211,6 +221,15 @@ function CalendarView() {
 }
 
 const styles = StyleSheet.create({
+  calendar: {
+    marginTop: 0,
+    height: 600,
+    width: 393,
+  },
+  arrow: {
+    fontSize: 18,
+    color: "black",
+  },
   scheduleItem: {
     flexDirection: "row",
     alignItems: "center",

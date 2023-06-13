@@ -44,7 +44,7 @@ const Login = ({ successLogin, signup_show }) => {
       body: JSON.stringify(userData),
     };
 
-    fetch("http://127.0.0.1:8000/login", postData)
+    fetch("http://172.23.14.120/login", postData)
       .then((response) => {
         if (response.ok) {
           // 요청이 성공한 경우
