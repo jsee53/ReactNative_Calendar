@@ -73,6 +73,11 @@ function CalendarView() {
             );
             setScheduleEndData(data.map((item) => item.end_date.split("T")[0]));
             setScheduleColor(data.map((item) => item.color));
+          } else {
+            setScheduleTitle([]);
+            setScheduleStartData([]);
+            setScheduleEndData([]);
+            setScheduleColor([]);
           }
         })
         .catch((error) => {
@@ -189,23 +194,29 @@ function CalendarView() {
         hideExtraDays={false}
       />
 
-      <ScrollView style={{ marginTop: -200, maxHeight: 200 }}>
-        {scheduleStartData
-          .map((startDate, index) => ({
-            startDate,
-            title: scheduleTitle[index],
-            endDate: scheduleEndData[index],
-            color: scheduleColor[index],
-          }))
-          .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
-          .map((schedule, index) => (
-            <View key={index} style={styles.scheduleItem}>
-              <View style={[styles.bar, { backgroundColor: schedule.color }]} />
-              <Text
-                style={styles.scheduleText}
-              >{`${schedule.startDate} ~ ${schedule.endDate} : ${schedule.title}`}</Text>
-            </View>
-          ))}
+      <ScrollView>
+        {scheduleStartData.length === 0 ? (
+          <Text style={styles.noScheduleText}>일정이 없습니다.</Text>
+        ) : (
+          scheduleStartData
+            .map((startDate, index) => ({
+              startDate,
+              title: scheduleTitle[index],
+              endDate: scheduleEndData[index],
+              color: scheduleColor[index],
+            }))
+            .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+            .map((schedule, index) => (
+              <View key={index} style={styles.scheduleItem}>
+                <View
+                  style={[styles.bar, { backgroundColor: schedule.color }]}
+                />
+                <Text
+                  style={styles.scheduleText}
+                >{`${schedule.startDate} ~ ${schedule.endDate} : ${schedule.title}`}</Text>
+              </View>
+            ))
+        )}
       </ScrollView>
 
       <Provider store={store}>
