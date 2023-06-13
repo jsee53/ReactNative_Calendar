@@ -56,11 +56,22 @@ const Signup = ({ successLogin, signup_show }) => {
   };
 
   const handleSignup = () => {
+    if (id.trim() === "" || password.trim() === "" || name.trim() === "") {
+      alert("이름, 아이디, 비밀번호는 필수 입력 항목입니다.");
+      return;
+    }
+
     const dateRegex = /^(\d{4})(\d{2})(\d{2})$/; // yyyyMMdd 또는 yyyy-mm-dd 형식의 정규식
     const validFormat = dateRegex.test(birthDate);
 
     if (!validFormat) {
       alert("생년월일 형식을 확인해주세요.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("올바른 이메일 형식이 아닙니다.");
       return;
     }
 

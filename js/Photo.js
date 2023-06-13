@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 
 //사진 처리 모달 컴포넌트
-function Photo({ isPhotoVisible, showPhotoModal, image }) {
+function Photo({ isPhotoVisible, showPhotoModal, image, refresh }) {
   const ipAddress = useSelector((state) => state.ipAddress);
   const id_key = useSelector((state) => state.idKey); // 로그인한 사용자의 id_key
   const [saveImage, setSaveImage] = useState(image);
@@ -165,6 +165,7 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
             fetch(`http://${ipAddress}:8000/addphotopost`, postData) // 서버의 API 엔드포인트를 적절히 수정하세요
               .then((response) => {
                 if (response.ok) {
+                  refresh();
                   return response.json();
                 } else {
                   throw new Error("이미지 저장 실패!");
