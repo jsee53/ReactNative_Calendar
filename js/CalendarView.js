@@ -34,6 +34,12 @@ function CalendarView() {
   const [scheduleEndData, setScheduleEndData] = useState([]); //사용자의 일정 종료 날짜
   const [scheduleColor, setScheduleColor] = useState([]); //사용자의 일정 색상
 
+  // 이미지 처리 후 일정 변동이 생기면 재랜더링
+  const [refreshKey, setRefreshKey] = useState(0);
+  const refresh = () => {
+    setRefreshKey((prevKey) => prevKey + 1);
+  };
+
   useEffect(() => {
     const fetchData = () => {
       const userData = {
@@ -71,7 +77,7 @@ function CalendarView() {
         });
     };
     fetchData();
-  }, [id_key, isVisible]);
+  }, [id_key, isVisible, refreshKey]);
 
   const markedDates = scheduleStartData.reduce((acc, current, index) => {
     const startDate = current;
@@ -199,7 +205,7 @@ function CalendarView() {
           />
         </View>
       </Provider>
-      <BottomBar />
+      <BottomBar refresh={refresh} />
     </View>
   );
 }

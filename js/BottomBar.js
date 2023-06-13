@@ -12,7 +12,7 @@ import { Provider } from "react-redux";
 import store from "./Store";
 import Photo from "./Photo";
 
-const BottomBar = () => {
+const BottomBar = ({ refresh }) => {
   const [image, setImage] = useState(null);
   const [isPhotoVisible, setIsPhotoVisible] = useState(false);
 
@@ -48,9 +48,10 @@ const BottomBar = () => {
     }
   };
 
-  //해당 모달창을 보여줄지 여부
+  // 일정 사진을 찍은 모달창을 보여줄지 여부
   const showPhotoModal = () => {
     setIsPhotoVisible(!isPhotoVisible);
+    refresh();
   };
 
   return (

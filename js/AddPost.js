@@ -11,6 +11,7 @@ import { Modal } from "react-native";
 import { format } from "date-fns";
 import ko from "date-fns/locale/ko";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 //일정 추가 모달 컴포넌트
 function AddPost({
@@ -54,6 +55,43 @@ function AddPost({
   const [color, setColor] = useState(getRandomColor()); // 일정 색상
 
   const handleSubmit = () => {
+    // 날짜 유효성 및 시작일/종료일 비교 검사
+    const isValidStartDate =
+      /^\d{4}\d{2}\d{2}$/.test(startDay) ||
+      /^\d{4}-\d{2}-\d{2}$/.test(startDay) ||
+      moment(startDay, "YYYYMMDD", true).isValid();
+    const isValidEndDate =
+      /^\d{4}\d{2}\d{2}$/.test(endDay) ||
+      /^\d{4}-\d{2}-\d{2}$/.test(endDay) ||
+      moment(endDay, "YYYYMMDD", true).isValid();
+    const startDate = isValidStartDate
+      ? moment(startDay, ["YYYYMMDD", "YYYY-MM-DD"]).toDate()
+      : null;
+    const endDate = isValidEndDate
+      ? moment(endDay, ["YYYYMMDD", "YYYY-MM-DD"]).toDate()
+      : null;
+    const isStartDateBeforeEndDate =
+      startDate !== null &&
+      endDate !== null &&
+      startDate.getTime() <= endDate.getTime();
+
+    if (!isValidStartDate || !isValidEndDate) {
+      alert(
+        "유효한 날짜 형식이 아닙니다. YYYYMMDD, YYYY-MM-DD 형식으로 입력해주세요."
+      );
+      return;
+    }
+
+    if (!isStartDateBeforeEndDate) {
+      alert("시작일이 종료일보다 뒤에 있어야 합니다.");
+      return;
+    }
+
+    if (postTitle.trim() === "") {
+      alert("일정 제목을 입력해주세요.");
+      return;
+    }
+
     setColor(getRandomColor());
     const DateData = {
       id_key: id_key,
