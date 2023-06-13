@@ -37,6 +37,12 @@ const BottomBar = ({ refresh }) => {
 
   const handleSubmitCamera = async () => {
     try {
+      let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+      if (permissionResult.granted === false) {
+        Alert.alert("Permission Denied", "Access to camera was denied.");
+        return;
+      }
+
       let result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
@@ -94,6 +100,7 @@ const BottomBar = ({ refresh }) => {
           isPhotoVisible={isPhotoVisible}
           showPhotoModal={showPhotoModal}
           image={image}
+          refresh={refresh}
         />
       </Provider>
     </View>
