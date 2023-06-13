@@ -30,6 +30,8 @@ function CalendarView() {
   };
 
   const id_key = useSelector((state) => state.idKey); // 로그인한 사용자의 id_key
+  const ipAddress = useSelector((state) => state.ipAddress); // 서버 ip 값
+
   const [scheduleTitle, setScheduleTitle] = useState([]); //사용자의 일정 제목
   const [scheduleStartData, setScheduleStartData] = useState([]); //사용자의 일정 시작 날짜
   const [scheduleEndData, setScheduleEndData] = useState([]); //사용자의 일정 종료 날짜
@@ -55,7 +57,7 @@ function CalendarView() {
         body: JSON.stringify(userData),
       };
 
-      fetch("http://172.23.14.120/calendar", postData)
+      fetch(`http://${ipAddress}:8000/calendar`, postData)
         .then((response) => {
           if (response.ok) {
             return response.json();

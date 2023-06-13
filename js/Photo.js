@@ -13,11 +13,41 @@ import moment from "moment";
 
 //사진 처리 모달 컴포넌트
 function Photo({ isPhotoVisible, showPhotoModal, image }) {
+  const ipAddress = useSelector((state) => state.ipAddress);
   const id_key = useSelector((state) => state.idKey); // 로그인한 사용자의 id_key
   const [saveImage, setSaveImage] = useState(image);
   const [title, setTitle] = useState("");
   const [startDay, setStartDay] = useState("");
   const [endDay, setEndDay] = useState("");
+
+  //일정 바 랜덤 색상
+  const getRandomColor = () => {
+    const colors = [
+      "#E57373", // 빨강
+      "#F06292", // 분홍
+      "#BA68C8", // 보라
+      "#9575CD", // 진보라
+      "#7986CB", // 남색
+      "#64B5F6", // 파랑
+      "#4FC3F7", // 연한 파랑
+      "#4DD0E1", // 청록
+      "#4DB6AC", // 틸
+      "#81C784", // 초록
+      "#AED581", // 연한 초록
+      "#DCE775", // 라임
+      "#FFF176", // 노랑
+      "#FFD54F", // 황갈색
+      "#FFB74D", // 주황
+      "#FF8A65", // 진한 주황
+      "#A1887F", // 갈색
+      "#90A4AE", // 청회색
+      "#D7CCC8", // 회색
+    ];
+
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  };
+  const [color, setColor] = useState(getRandomColor()); // 일정 색상
 
   //사진을 서버로 보내고 제목과 일정을 받아옴
   useEffect(() => {
@@ -41,7 +71,7 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
             body: JSON.stringify(userData),
           };
 
-          fetch("http://127.0.0.1:8000/photo", postData)
+          fetch(`http://${ipAddress}:8000/photo`, postData)
             .then((response) => {
               if (response.ok) {
                 return response.json();
@@ -121,6 +151,7 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
               title: title,
               startDay: startDay,
               endDay: endDay,
+              color: color,
             };
 
             const postData = {
@@ -131,7 +162,7 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
               body: JSON.stringify(userData),
             };
 
-            fetch("http://127.0.0.1:8000/addphotopost", postData) // 서버의 API 엔드포인트를 적절히 수정하세요
+            fetch(`http://${ipAddress}:8000/addphotopost`, postData) // 서버의 API 엔드포인트를 적절히 수정하세요
               .then((response) => {
                 if (response.ok) {
                   return response.json();

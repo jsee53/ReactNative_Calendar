@@ -17,9 +17,24 @@ export const { setIdKey } = idKeySlice.actions;
 // 슬라이스 리듀서 추출
 const idKeyReducer = idKeySlice.reducer;
 
+const ipAddressSlice = createSlice({
+  name: "ipAddress",
+  initialState: "172.23.14.120", // 초기 IP 번호 값
+  reducers: {
+    setIpAddress: (state, action) => {
+      return action.payload;
+    },
+  },
+});
+
+export const { setIpAddress } = ipAddressSlice.actions;
+
+const ipAddressReducer = ipAddressSlice.reducer;
+
 // 루트 리듀서 생성
 const rootReducer = {
   idKey: idKeyReducer,
+  ipAddress: ipAddressReducer,
   // 다른 리듀서들...
 };
 

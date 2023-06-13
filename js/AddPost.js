@@ -20,6 +20,7 @@ function AddPost({
   showAddPostModal,
   selectedDate,
 }) {
+  const ipAddress = useSelector((state) => state.ipAddress);
   const [postTitle, setPostTitle] = useState(""); // 일정 제목 상태 관리
   const [startDay, setStartDay] = useState(""); // 일정 시작 날짜
   const [endDay, setEndDay] = useState(""); // 일정 종료 날짜
@@ -110,7 +111,7 @@ function AddPost({
       body: JSON.stringify(DateData),
     };
 
-    fetch("http://127.0.0.1:8000/addpost", postData).then((response) => {
+    fetch(`http://${ipAddress}:8000/addpost`, postData).then((response) => {
       if (response.ok) {
         // 요청이 성공한 경우
         return response.json(); // JSON 형식으로 변환된 응답 반환

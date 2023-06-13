@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import store from "./js/Store";
 
 const App = () => {
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
   const [signup, setsignup] = useState(false);
 
   //로그인 성공 여부 확인
