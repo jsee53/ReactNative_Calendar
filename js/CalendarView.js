@@ -87,10 +87,10 @@ function CalendarView() {
     fetchData();
   }, [id_key, isVisible, refreshKey]);
 
-  const today = format(new Date(), "yyyy-MM-dd");
+  // const today = format(new Date(), "yyyy-MM-dd"); //오늘 날짜 색칠
 
-  const markedDates = Object.assign(
-    {},
+  const markedDates =
+    // Object.assign({}, //오늘 날짜 색칠
     scheduleStartData.reduce((acc, current, index) => {
       const startDate = current;
       const endDate = scheduleEndData[index];
@@ -151,15 +151,15 @@ function CalendarView() {
       }
 
       return acc;
-    }, {}),
-    {
-      [today]: {
-        selected: true,
-        selectedColor: "#004898",
-        textStyle: { fontWeight: "bold", color: "white" },
-      },
-    }
-  );
+    }, {});
+  //   ,{
+  //     [today]: {
+  //       selected: true,
+  //       selectedColor: "#004898",
+  //       textStyle: { fontWeight: "bold", color: "white" },
+  //     },
+  //   }
+  // ); // 오늘 날짜 색칠
 
   return (
     <View>
@@ -171,8 +171,8 @@ function CalendarView() {
         theme={{
           calendarBackground: "white", //캘린더 배경색
           textSectionTitleColor: "black", //월 ~ 일요일 색상
-          selectedDayTextColor: "#ffffff", //선택된 날짜 글자 색상
-          todayTextColor: "#ffffff", //오늘 날짜 글자 색상
+          selectedDayTextColor: "blue", //선택된 날짜 글자 색상
+          todayTextColor: "blue", //오늘 날짜 글자 색상
           dayTextColor: "grey", //일반 날짜 글자 색상
           textDayHeaderFontWeight: "500",
         }}
@@ -196,7 +196,9 @@ function CalendarView() {
 
       <ScrollView style={{ marginTop: -200, maxHeight: 200 }}>
         {scheduleStartData.length === 0 ? (
-          <Text>일정이 없습니다.</Text>
+          <View style={styles.txtcontainer}>
+            <Text style={styles.txtst}>일정이 없습니다.</Text>
+          </View>
         ) : (
           scheduleStartData
             .map((startDate, index) => ({
@@ -256,6 +258,17 @@ const styles = StyleSheet.create({
   },
   scheduleText: {
     fontSize: 16,
+  },
+  txtcontainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  txtst: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#bbbbbb",
+    textAlign: "center",
   },
 });
 
