@@ -34,6 +34,12 @@ function CalendarView() {
   const [scheduleEndData, setScheduleEndData] = useState([]); //사용자의 일정 종료 날짜
   const [scheduleColor, setScheduleColor] = useState([]); //사용자의 일정 색상
 
+  // 이미지 처리 후 일정 변동이 생기면 재랜더링
+  const [refreshKey, setRefreshKey] = useState(0);
+  const refresh = () => {
+    setRefreshKey((prevKey) => prevKey + 1);
+  };
+
   useEffect(() => {
     const fetchData = () => {
       const userData = {
@@ -71,7 +77,7 @@ function CalendarView() {
         });
     };
     fetchData();
-  }, [id_key, isVisible]);
+  }, [id_key, isVisible, refreshKey]);
 
   const markedDates = scheduleStartData.reduce((acc, current, index) => {
     const startDate = current;
@@ -169,6 +175,7 @@ function CalendarView() {
         )}
         // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
         hideExtraDays={true}
+        dayNames={["일", "월", "화", "수", "목", "금", "토"]}
       />
 
       <ScrollView style={{ marginTop: -200, maxHeight: 200 }}>
@@ -199,7 +206,7 @@ function CalendarView() {
           />
         </View>
       </Provider>
-      <BottomBar />
+      <BottomBar refresh={refresh} />
     </View>
   );
 }

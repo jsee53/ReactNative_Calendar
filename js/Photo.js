@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Modal } from "react-native";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 //사진 처리 모달 컴포넌트
 function Photo({ isPhotoVisible, showPhotoModal, image }) {
@@ -97,7 +98,45 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
     }
   }, [isPhotoVisible]);
 
+  // 일정 데이터 저장
   const handleSubmit = () => {
+    // 날짜 유효성 및 시작일/종료일 비교 검사
+    const isValidStartDate =
+      /^\d{4}\d{2}\d{2}$/.test(startDay) ||
+      /^\d{4}-\d{2}-\d{2}$/.test(startDay) ||
+      moment(startDay, "YYYYMMDD", true).isValid();
+    const isValidEndDate =
+      /^\d{4}\d{2}\d{2}$/.test(endDay) ||
+      /^\d{4}-\d{2}-\d{2}$/.test(endDay) ||
+      moment(endDay, "YYYYMMDD", true).isValid();
+    const startDate = isValidStartDate
+      ? moment(startDay, ["YYYYMMDD", "YYYY-MM-DD"]).toDate()
+      : null;
+    const endDate = isValidEndDate
+      ? moment(endDay, ["YYYYMMDD", "YYYY-MM-DD"]).toDate()
+      : null;
+    const isStartDateBeforeEndDate =
+      startDate !== null &&
+      endDate !== null &&
+      startDate.getTime() <= endDate.getTime();
+
+    if (!isValidStartDate || !isValidEndDate) {
+      alert(
+        "유효한 날짜 형식이 아닙니다. YYYYMMDD, YYYY-MM-DD 형식으로 입력해주세요."
+      );
+      return;
+    }
+
+    if (!isStartDateBeforeEndDate) {
+      alert("시작일이 종료일보다 뒤에 있어야 합니다.");
+      return;
+    }
+
+    if (title.trim() === "") {
+      alert("일정 제목을 입력해주세요.");
+      return;
+    }
+
     if (saveImage) {
       fetch(saveImage)
         .then((response) => response.blob())

@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Modal } from "react-native";
 import { Image } from "react-native";
+import moment from "moment";
 
 //일정 추가 모달 컴포넌트
 function UpdatePost({
@@ -50,7 +51,12 @@ function UpdatePost({
           setPostTitle(data.title);
           setStartDay(data.start_date.split("T")[0]);
           setEndDay(data.end_date.split("T")[0]);
-          setImage(`data:image/png;base64,${data.image}`); // 이미지 디코딩
+          // 이미지 데이터가 존재하는지 확인
+          if (data.image) {
+            setImage(`data:image/png;base64,${data.image}`); // 이미지 디코딩
+          } else {
+            setImage(null);
+          }
         })
         .catch((error) => {
           console.error("선택 일정 불러오기 오류!", error);
@@ -59,6 +65,43 @@ function UpdatePost({
   }, [showUpdatePostModal]);
 
   const handleSubmit = () => {
+    // 날짜 유효성 및 시작일/종료일 비교 검사
+    const isValidStartDate =
+      /^\d{4}\d{2}\d{2}$/.test(startDay) ||
+      /^\d{4}-\d{2}-\d{2}$/.test(startDay) ||
+      moment(startDay, "YYYYMMDD", true).isValid();
+    const isValidEndDate =
+      /^\d{4}\d{2}\d{2}$/.test(endDay) ||
+      /^\d{4}-\d{2}-\d{2}$/.test(endDay) ||
+      moment(endDay, "YYYYMMDD", true).isValid();
+    const startDate = isValidStartDate
+      ? moment(startDay, ["YYYYMMDD", "YYYY-MM-DD"]).toDate()
+      : null;
+    const endDate = isValidEndDate
+      ? moment(endDay, ["YYYYMMDD", "YYYY-MM-DD"]).toDate()
+      : null;
+    const isStartDateBeforeEndDate =
+      startDate !== null &&
+      endDate !== null &&
+      startDate.getTime() <= endDate.getTime();
+
+    if (!isValidStartDate || !isValidEndDate) {
+      alert(
+        "유효한 날짜 형식이 아닙니다. YYYYMMDD, YYYY-MM-DD 형식으로 입력해주세요."
+      );
+      return;
+    }
+
+    if (!isStartDateBeforeEndDate) {
+      alert("시작일이 종료일보다 뒤에 있어야 합니다.");
+      return;
+    }
+
+    if (postTitle.trim() === "") {
+      alert("일정 제목을 입력해주세요.");
+      return;
+    }
+
     const DateData = {
       title_key: selectedScheduleId,
       title: postTitle,
@@ -137,7 +180,14 @@ function UpdatePost({
           >
             <Text>X</Text>
           </TouchableOpacity>
-          <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />
+          {image ? (
+            <Image
+              source={{ uri: image }}
+              style={{ width: 100, height: 100 }}
+            />
+          ) : (
+            <Text>Not Found Image</Text>
+          )}
           <TextInput
             style={styles.input}
             value={postTitle}
