@@ -18,21 +18,20 @@ const BottomBar = ({ refresh }) => {
 
   const handleSubmitGallery = async () => {
     try {
-      let result = await ImagePicker.launchCameraAsync({
+      let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
         aspect: [4, 3],
         quality: 1,
         base64: true,
       });
-
       if (!result.canceled) {
         // 사진이 입력되었을 경우에만 showPhotoModal() 실행
         setImage(result);
         showPhotoModal();
       }
     } catch (error) {
-      Alert.alert("Error", "Failed to take a photo.");
+      Alert.alert("Error", "Failed to pick an image.");
     }
   };
 
