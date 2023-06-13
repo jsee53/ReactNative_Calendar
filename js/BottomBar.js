@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 16,
-    height: 135,
+    height: 107,
     width: 393,
     backgroundColor: "#004898", // 하단바 배경색
     marginTop: 230,
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 70,
+    marginBottom: 45,
   },
   rightContainer: {
     height: 80,
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 70,
+    marginBottom: 45,
   },
   icon: {
     width: 24, // 이미지 너비

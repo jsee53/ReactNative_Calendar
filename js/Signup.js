@@ -104,7 +104,7 @@ const Signup = ({ successLogin, signup_show }) => {
   return (
     <View style={styles.container}>
       {/* <View style={styles.startcontainer}> */}
-      <Text style={styles.title}>Join</Text>
+      <Text style={styles.title}>회원가입</Text>
       {/* </View>
       <View style={styles.inputcontainer}> */}
       <TextInput
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 300, // 추가된 스타일
+    paddingTop: 380,
   },
   startcontainer: {
     flex: 1,
@@ -182,9 +182,10 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   title: {
-    fontSize: 40,
+    fontSize: 35,
     fontWeight: "600",
-    marginBottom: 50,
+    marginBottom: 30,
+    height: 45,
   },
   input: {
     width: 170,

@@ -134,14 +134,16 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
               />
             </TouchableOpacity>
           </View>
-          {saveImage && (
-            <Image
-              source={{ uri: saveImage }}
-              style={{ width: 200, height: 200 }}
-            />
-          )}
+          <View style={styles.imgcontainer}>
+            {saveImage && (
+              <Image
+                source={{ uri: saveImage }}
+                style={[styles.image, { alignSelf: "center" }]}
+              />
+            )}
+          </View>
           <TextInput
-            style={[styles.input, { marginTop: 38, marginBottom: 5 }]}
+            style={[styles.input, { marginTop: 15, marginBottom: 3 }]}
             placeholder="일정 제목"
             placeholderTextColor="#bbbbbb"
             value={title}
@@ -182,9 +184,9 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: "white",
     width: 330,
-    height: 500,
+    height: 580,
     padding: 20,
-    marginTop: 270,
+    marginTop: 250,
     borderRadius: 10,
     borderWidth: 2,
     borderColor: "#004898",
@@ -204,12 +206,12 @@ const styles = StyleSheet.create({
     height: 12,
   },
   input: {
-    width: 250,
+    width: 230,
+    alignSelf: "center",
     borderWidth: 1,
     borderRadius: 5,
     marginTop: 15,
-    padding: 8,
-    marginLeft: 15,
+    padding: 7,
   },
   buttonlocation: {
     flex: 1,
@@ -230,6 +232,16 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 12,
     fontWeight: "600",
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 20, // 이미지의 상단 여백을 조정할 수 있습니다.
+  },
+  image: {
+    width: 250,
+    height: 300,
   },
 });
 
