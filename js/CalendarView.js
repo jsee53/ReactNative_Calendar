@@ -194,9 +194,9 @@ function CalendarView() {
         hideExtraDays={false}
       />
 
-      <ScrollView>
+      <ScrollView style={{ marginTop: -200, maxHeight: 200 }}>
         {scheduleStartData.length === 0 ? (
-          <Text style={styles.noScheduleText}>일정이 없습니다.</Text>
+          <Text>일정이 없습니다.</Text>
         ) : (
           scheduleStartData
             .map((startDate, index) => ({
