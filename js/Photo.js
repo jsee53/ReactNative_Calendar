@@ -19,35 +19,6 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
   const [startDay, setStartDay] = useState("");
   const [endDay, setEndDay] = useState("");
 
-  //일정 바 랜덤 색상
-  const getRandomColor = () => {
-    const colors = [
-      "#E57373", // 빨강
-      "#F06292", // 분홍
-      "#BA68C8", // 보라
-      "#9575CD", // 진보라
-      "#7986CB", // 남색
-      "#64B5F6", // 파랑
-      "#4FC3F7", // 연한 파랑
-      "#4DD0E1", // 청록
-      "#4DB6AC", // 틸
-      "#81C784", // 초록
-      "#AED581", // 연한 초록
-      "#DCE775", // 라임
-      "#FFF176", // 노랑
-      "#FFD54F", // 황갈색
-      "#FFB74D", // 주황
-      "#FF8A65", // 진한 주황
-      "#A1887F", // 갈색
-      "#90A4AE", // 청회색
-      "#D7CCC8", // 회색
-    ];
-
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-  };
-  const [color, setColor] = useState(getRandomColor()); // 일정 색상
-
   //사진을 서버로 보내고 제목과 일정을 받아옴
   useEffect(() => {
     if (isPhotoVisible) {
@@ -150,7 +121,6 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
               title: title,
               startDay: startDay,
               endDay: endDay,
-              color: color,
             };
 
             const postData = {
@@ -190,13 +160,19 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <TouchableOpacity
-            onPress={() => {
-              showPhotoModal();
-            }}
-          >
-            <Text>X</Text>
-          </TouchableOpacity>
+          <View style={styles.closelocation}>
+            <TouchableOpacity
+              style={styles.close}
+              onPress={() => {
+                showPhotoModal();
+              }}
+            >
+              <Image
+                source={require("../favicon/X.png")}
+                style={[styles.closetxt, { width: 20, height: 20 }]}
+              />
+            </TouchableOpacity>
+          </View>
           {saveImage && (
             <Image
               source={{ uri: saveImage }}
@@ -204,23 +180,31 @@ function Photo({ isPhotoVisible, showPhotoModal, image }) {
             />
           )}
           <TextInput
-            style={styles.input}
+            style={[styles.input, { marginTop: 38, marginBottom: 5 }]}
+            placeholder="일정 제목"
+            placeholderTextColor="#bbbbbb"
             value={title}
             onChangeText={setTitle}
           />
           <TextInput
-            style={styles.input}
+            style={[styles.input, { marginBottom: -3 }]}
+            placeholder="일정 시작날짜"
+            placeholderTextColor="#bbbbbb"
             value={startDay}
             onChangeText={setStartDay}
           />
           <TextInput
-            style={styles.input}
+            style={[styles.input, { marginBottom: 0 }]}
+            placeholder="일정 종료날짜"
+            placeholderTextColor="#bbbbbb"
             value={endDay}
             onChangeText={setEndDay}
           />
-          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>제출</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonlocation}>
+            <TouchableOpacity style={styles.addButton} onPress={handleSubmit}>
+              <Text style={styles.text}>등록</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>
@@ -236,23 +220,55 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: "white",
-    width: 300,
-    height: 200,
+    width: 330,
+    height: 500,
     padding: 20,
+    marginTop: 270,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#004898",
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "gray",
-    marginBottom: 10,
-    padding: 5,
+  closelocation: {
+    justifyContent: "flex-start",
+    alignItems: "flex-end",
   },
-  button: {
-    backgroundColor: "lightblue",
-    padding: 10,
+  close: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
     alignItems: "center",
   },
-  buttonText: {
-    fontWeight: "bold",
+  closetxt: {
+    width: 12,
+    height: 12,
+  },
+  input: {
+    width: 250,
+    borderWidth: 1,
+    borderRadius: 5,
+    marginTop: 15,
+    padding: 8,
+    marginLeft: 15,
+  },
+  buttonlocation: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+  },
+  addButton: {
+    width: 77,
+    height: 30,
+    backgroundColor: "#004898",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+    marginTop: 20,
+    marginHorizontal: 10,
+  },
+  text: {
+    color: "white",
+    fontSize: 12,
+    fontWeight: "600",
   },
 });
 

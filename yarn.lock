@@ -8650,7 +8650,7 @@
   dependencies:
     "prop-types" "^15.7.2"
 
-"react-native-calendars@^1.1297.0":
+"react-native-calendars@^1.1298.0":
   "integrity" "sha512-+g9b6ceYQn+kEzS2dK5RsOhXR4Ue659EOVTpg+5kFZBHbgwqIqSwpKQIXwK6h8jkDMpUgjMYn4qVLYHW77FzWw=="
   "resolved" "https://registry.npmjs.org/react-native-calendars/-/react-native-calendars-1.1298.0.tgz"
   "version" "1.1298.0"

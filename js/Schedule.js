@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, Image } from "react-native";
 import { Modal } from "react-native";
 import { format } from "date-fns";
 import ko from "date-fns/locale/ko";
@@ -85,14 +85,19 @@ function Schedule({ isVisible, showModal, selectedDate }) {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <TouchableOpacity onPress={showModal}>
-            <Text>X</Text>
-          </TouchableOpacity>
-          <Text>
+          <View style={styles.closelocation}>
+            <TouchableOpacity style={styles.close} onPress={showModal}>
+              <Image
+                source={require("../favicon/X.png")}
+                style={[styles.closetxt, { width: 20, height: 20 }]}
+              />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.day}>
             {format(new Date(selectedDate), "M월 d일 EEEE", { locale: ko })}
           </Text>
           {scheduleData.length === 0 ? (
-            <Text>일정이 없습니다.</Text>
+            <Text style={styles.daysch}>일정이 없습니다.</Text>
           ) : (
             scheduleData.map((scheduleItem, index) => (
               <TouchableOpacity
@@ -106,12 +111,14 @@ function Schedule({ isVisible, showModal, selectedDate }) {
               </TouchableOpacity>
             ))
           )}
-          <TouchableOpacity
-            style={styles.addButton} // 스타일 추가
-            onPress={showAddPostModal}
-          >
-            <Text>추가</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonlocation}>
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={showAddPostModal}
+            >
+              <Text style={styles.text}>추가</Text>
+            </TouchableOpacity>
+          </View>
           <Provider store={store}>
             <AddPost
               isAddPostVisible={isAddPostVisible}
@@ -135,22 +142,66 @@ function Schedule({ isVisible, showModal, selectedDate }) {
 
 const styles = StyleSheet.create({
   modalContainer: {
-    height: 250,
-    width: 300,
+    height: 600,
+    width: 400,
     justifyContent: "center",
     alignItems: "center",
   },
   modalContent: {
     backgroundColor: "white",
-    width: 300,
-    height: 200,
+    width: 330,
+    height: 500,
     padding: 20,
+    marginTop: 270,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#004898",
+  },
+  closelocation: {
+    justifyContent: "flex-start",
+    alignItems: "flex-end",
+  },
+  close: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  closetxt: {
+    width: 12,
+    height: 12,
+  },
+  day: {
+    marginLeft: 20,
+    paddingBottom: 20,
+    fontSize: 15,
+    fontWeight: 500,
+  },
+  daysch: {
+    margin: 20,
+    fontSize: 15,
+    fontWeight: 500,
+    color: "#bbbbbb",
+  },
+  buttonlocation: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
   },
   addButton: {
-    marginTop: 10,
-    backgroundColor: "lightblue",
-    padding: 10,
+    width: 77,
+    height: 30,
+    backgroundColor: "#004898",
+    justifyContent: "center",
     alignItems: "center",
+    borderRadius: 4,
+    marginTop: 20,
+    marginHorizontal: 10,
+  },
+  text: {
+    color: "white",
+    fontSize: 12,
+    fontWeight: "600",
   },
 });
 

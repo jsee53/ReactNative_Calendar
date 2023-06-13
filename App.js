@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import store from "./js/Store";
 
 const App = () => {
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
   const [signup, setsignup] = useState(false);
 
   //로그인 성공 여부 확인
@@ -23,9 +23,9 @@ const App = () => {
 
   return (
     <View>
+      <StatusBar barStyle="dark-content" />
       {login ? (
         <View>
-          <StatusBar style="auto" />
           <Provider store={store}>
             <CalendarView />
           </Provider>

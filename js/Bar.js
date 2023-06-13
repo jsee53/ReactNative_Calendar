@@ -23,7 +23,7 @@ const Bar = ({ month, year }) => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.selectmonth}>
           <Text style={styles.label}>
-            {year} / {month}
+            {year}년 {month}월
           </Text>
         </TouchableOpacity>
       </View>
@@ -58,26 +58,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    height: 60,
+    height: 115,
     width: 393,
     backgroundColor: "#F5F5F5",
   },
   leftContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 50,
+    marginLeft: 10,
   },
   selectmonth: {
-    marginLeft: 10,
+    marginLeft: 20,
     flexDirection: "row",
     alignItems: "center",
   },
-  label: {},
+  label: {
+    fontSize: 16,
+    fontWeight: 500,
+  },
   centerContainer: {
     flex: 1,
   },
   rightContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 50,
+    marginRight: 10,
   },
   icon: {
     width: 24,

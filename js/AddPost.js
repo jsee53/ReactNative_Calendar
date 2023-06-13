@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet,
   TextInput,
+  Image,
 } from "react-native";
 import { Modal } from "react-native";
 import { format } from "date-fns";
@@ -133,38 +134,49 @@ function AddPost({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <TouchableOpacity
-            onPress={() => {
-              showModal();
-              showAddPostModal();
-            }}
-          >
-            <Text style={styles.close}>X</Text>
-          </TouchableOpacity>
-          <Text>
+          <View style={styles.closelocation}>
+            <TouchableOpacity
+              style={styles.close}
+              onPress={() => {
+                showModal();
+                showAddPostModal();
+              }}
+            >
+              <Image
+                source={require("../favicon/X.png")}
+                style={[styles.closetxt, { width: 20, height: 20 }]}
+              />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.day}>
             {format(new Date(selectedDate), "M월 d일 EEEE", { locale: ko })}
           </Text>
           <TextInput
-            style={styles.input}
-            placeholder="일정 제목"
+            style={[styles.input, { marginBottom: 50 }]}
+            placeholder="제목"
+            placeholderTextColor="#bbbbbb"
             value={postTitle}
             onChangeText={setPostTitle}
           />
           <TextInput
-            style={styles.input}
-            placeholder="일정 시작날짜"
+            style={[styles.input, { marginBottom: 20 }]}
+            placeholder="시작 ex) 20230302"
+            placeholderTextColor="#bbbbbb"
             value={startDay}
             onChangeText={setStartDay}
           />
           <TextInput
-            style={styles.input}
-            placeholder="일정 종료날짜"
+            style={[styles.input, { marginBottom: 20 }]}
+            placeholder="종료 ex) 20230616"
+            placeholderTextColor="#bbbbbb"
             value={endDay}
             onChangeText={setEndDay}
           />
-          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>제출</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonlocation}>
+            <TouchableOpacity style={styles.addButton} onPress={handleSubmit}>
+              <Text style={styles.text}>등록</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>
@@ -173,33 +185,69 @@ function AddPost({
 
 const styles = StyleSheet.create({
   modalContainer: {
-    height: 250,
-    width: 300,
+    height: 600,
+    width: 400,
     justifyContent: "center",
     alignItems: "center",
   },
   modalContent: {
     backgroundColor: "white",
-    width: 300,
-    height: 200,
+    width: 330,
+    height: 500,
     padding: 20,
+    marginTop: 270,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#004898",
   },
-  close: {
+  closelocation: {
+    justifyContent: "flex-start",
     alignItems: "flex-end",
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "gray",
-    marginBottom: 10,
-    padding: 5,
-  },
-  button: {
-    backgroundColor: "lightblue",
-    padding: 10,
+  close: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
     alignItems: "center",
   },
-  buttonText: {
-    fontWeight: "bold",
+  closetxt: {
+    width: 12,
+    height: 12,
+  },
+  day: {
+    marginLeft: 20,
+    paddingBottom: 20,
+    marginBottom: 20,
+    fontSize: 15,
+    fontWeight: 500,
+  },
+  input: {
+    width: 200,
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 10,
+    padding: 10,
+    marginLeft: 15,
+  },
+  buttonlocation: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+  },
+  addButton: {
+    width: 77,
+    height: 30,
+    backgroundColor: "#004898",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+    marginTop: 20,
+    marginHorizontal: 10,
+  },
+  text: {
+    color: "white",
+    fontSize: 12,
+    fontWeight: "600",
   },
 });
 
