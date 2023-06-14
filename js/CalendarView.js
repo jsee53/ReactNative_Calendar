@@ -238,6 +238,7 @@ function CalendarView() {
 
 const styles = StyleSheet.create({
   calendar: {
+    marginTop: -10,
     height: 370,
   },
   arrow: {
@@ -265,7 +266,7 @@ const styles = StyleSheet.create({
   },
   txtcontainer: {
     height: 225,
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
   },
   txtst: {

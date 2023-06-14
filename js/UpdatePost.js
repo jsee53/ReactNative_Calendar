@@ -193,23 +193,25 @@ function UpdatePost({
           {image ? (
             <Image
               source={{ uri: image }}
-              style={{ width: 100, height: 100 }}
+              style={[styles.image, { alignSelf: "center" }]}
             />
           ) : (
-            <Text></Text>
+            <View style={styles.empty}>
+              <Text style={styles.imgempty}>이미지가 없는 일정입니다.</Text>
+            </View>
           )}
           <TextInput
-            style={[styles.input, { marginBottom: 50 }]}
+            style={[styles.input, { marginTop: 15, marginBottom: 3 }]}
             value={postTitle}
             onChangeText={setPostTitle}
           />
           <TextInput
-            style={[styles.input, { marginBottom: 20 }]}
+            style={[styles.input, { marginBottom: -3 }]}
             value={startDay}
             onChangeText={setStartDay}
           />
           <TextInput
-            style={[styles.input, { marginBottom: 20 }]}
+            style={[styles.input, { marginBottom: 0 }]}
             value={endDay}
             onChangeText={setEndDay}
           />
@@ -240,7 +242,7 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: "white",
     width: 330,
-    height: 500,
+    height: 580,
     padding: 20,
     marginTop: 270,
     borderRadius: 10,
@@ -262,12 +264,12 @@ const styles = StyleSheet.create({
     height: 12,
   },
   input: {
-    width: 200,
+    width: 230,
+    alignSelf: "center",
     borderWidth: 1,
     borderRadius: 5,
-    marginBottom: 10,
-    padding: 10,
-    marginLeft: 15,
+    marginTop: 15,
+    padding: 7,
   },
   buttonlocation: {
     flex: 1,
@@ -289,6 +291,18 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 12,
     fontWeight: "600",
+  },
+  image: {
+    width: 250,
+    height: 300,
+  },
+  empty: {
+    height: 300,
+    justifyContent: "center",
+  },
+  imgempty: {
+    color: "grey",
+    textAlign: "center",
   },
 });
 

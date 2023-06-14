@@ -128,12 +128,14 @@ const Signup = ({ successLogin, signup_show }) => {
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.startcontainer}> */}
       <Text style={styles.title}>회원가입</Text>
-      {/* </View>
-      <View style={styles.inputcontainer}> */}
+      <View style={styles.separator} />
       <TextInput
-        style={[styles.input, isIdInputEmpty ? styles.empty : styles.filled]} // 변경된 코드
+        style={[
+          styles.input,
+          { marginTop: 35 },
+          isIdInputEmpty ? styles.empty : styles.filled,
+        ]} // 변경된 코드
         placeholder="ID"
         onChangeText={handleIdChange}
         value={id}
@@ -169,7 +171,6 @@ const Signup = ({ successLogin, signup_show }) => {
         onChangeText={handleEmailChange}
         value={email}
       />
-      {/* </View> */}
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={signup_show}>
           <Text style={styles.buttonText}>취소</Text>
@@ -190,16 +191,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 380,
   },
-  startcontainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignContent: "center",
-  },
-  inputcontainer: {
-    flex: 3,
-    justifyContent: "center",
-    alignContent: "center",
-  },
   buttonContainer: {
     flex: 3,
     flexDirection: "row",
@@ -209,8 +200,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 35,
     fontWeight: "600",
-    marginBottom: 30,
     height: 45,
+    marginBottom: 13,
   },
   input: {
     width: 170,
@@ -242,6 +233,13 @@ const styles = StyleSheet.create({
   },
   filled: {
     color: "black",
+  },
+  separator: {
+    borderBottomColor: "#bbbbbb",
+    borderBottomWidth: 1,
+    width: "80%",
+    marginBottom: 10,
+    alignSelf: "center",
   },
 });
 

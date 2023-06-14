@@ -66,7 +66,8 @@ const BottomBar = ({ refresh }) => {
   };
 
   return (
-    <View>
+    <View style={styles.parentContainer}>
+      <View style={styles.separator} />
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.leftContainer}
@@ -106,6 +107,12 @@ const BottomBar = ({ refresh }) => {
 };
 
 const styles = StyleSheet.create({
+  parentContainer: {
+    flexDirection: "column",
+    borderBottomColor: "#bbbbbb",
+    borderBottomWidth: 1,
+    marginTop: 35,
+  },
   container: {
     flexDirection: "row",
     alignItems: "center",
@@ -114,7 +121,7 @@ const styles = StyleSheet.create({
     height: 107,
     width: 393,
     backgroundColor: "#004898", // 하단바 배경색
-    marginTop: 50,
+    marginTop: -10,
   },
   leftContainer: {
     height: 80,
@@ -145,6 +152,13 @@ const styles = StyleSheet.create({
     color: "#f5f5f5", // 텍스트 색상
     fontSize: 12, // 텍스트 크기
     fontWeight: 600,
+  },
+  separator: {
+    borderBottomColor: "black",
+    borderBottomWidth: 1,
+    width: "100%",
+    marginBottom: 10,
+    alignSelf: "center",
   },
 });
 
