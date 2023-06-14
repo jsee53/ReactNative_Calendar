@@ -101,6 +101,7 @@ function Photo({ isPhotoVisible, showPhotoModal, image, refresh }) {
 
   // 일정 데이터 저장
   const handleSubmit = () => {
+    setColor(getRandomColor);
     // 날짜 유효성 및 시작일/종료일 비교 검사
     const isValidStartDate =
       /^\d{4}\d{2}\d{2}$/.test(startDay) ||
