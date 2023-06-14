@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     borderBottomColor: "#bbbbbb",
     borderBottomWidth: 1,
-    marginTop: 35,
+    marginTop: 40,
   },
   container: {
     flexDirection: "row",
