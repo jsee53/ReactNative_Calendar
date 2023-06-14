@@ -164,43 +164,45 @@ function CalendarView() {
   return (
     <View>
       <Bar month={month} year={year} />
-      <Calendar
-        style={styles.calendar}
-        markingType="multi-period"
-        markedDates={markedDates}
-        theme={{
-          calendarBackground: "white", //캘린더 배경색
-          textSectionTitleColor: "black", //월 ~ 일요일 색상
-          selectedDayTextColor: "blue", //선택된 날짜 글자 색상
-          todayTextColor: "blue", //오늘 날짜 글자 색상
-          dayTextColor: "grey", //일반 날짜 글자 색상
-          textDayHeaderFontWeight: "500",
-        }}
-        //날짜 선택시 실행될 함수
-        onDayPress={(day) => {
-          setSelectedDate(day.dateString); //선택한 날짜를 selectedDate에 저장
-          setIsVisible(true); //선택한 날짜의 Schedule 컴포넌트를 보여줌
-        }}
-        monthFormat={""}
-        onMonthChange={(month) => {
-          setMonth(month.month);
-          setYear(month.year);
-        }}
-        // 기본 화살표를 커스텀화살표로 대체 (방향은 '왼쪽'이나 '오른쪽')
-        renderArrow={(direction) => (
-          <Text style={styles.arrow}>{direction === "left" ? "<" : ">"}</Text>
-        )}
-        // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
-        hideExtraDays={false}
-      />
+      <View>
+        <Calendar
+          style={styles.calendar}
+          markingType="multi-period"
+          markedDates={markedDates}
+          theme={{
+            calendarBackground: "white", //캘린더 배경색
+            textSectionTitleColor: "black", //월 ~ 일요일 색상
+            selectedDayTextColor: "blue", //선택된 날짜 글자 색상
+            todayTextColor: "blue", //오늘 날짜 글자 색상
+            dayTextColor: "grey", //일반 날짜 글자 색상
+            textDayHeaderFontWeight: "500",
+          }}
+          //날짜 선택시 실행될 함수
+          onDayPress={(day) => {
+            setSelectedDate(day.dateString); //선택한 날짜를 selectedDate에 저장
+            setIsVisible(true); //선택한 날짜의 Schedule 컴포넌트를 보여줌
+          }}
+          monthFormat={""}
+          onMonthChange={(month) => {
+            setMonth(month.month);
+            setYear(month.year);
+          }}
+          // 기본 화살표를 커스텀화살표로 대체 (방향은 '왼쪽'이나 '오른쪽')
+          renderArrow={(direction) => (
+            <Text style={styles.arrow}>{direction === "left" ? "<" : ">"}</Text>
+          )}
+          // 이번 달 페이지에 다른 달 숫자를 보이지 않게 함, Default = false
+          hideExtraDays={false}
+        />
+      </View>
 
-      <ScrollView style={{ marginTop: -200, maxHeight: 200 }}>
-        {scheduleStartData.length === 0 ? (
-          <View style={styles.txtcontainer}>
-            <Text style={styles.txtst}>일정이 없습니다.</Text>
-          </View>
-        ) : (
-          scheduleStartData
+      {scheduleStartData.length === 0 ? (
+        <View style={styles.txtcontainer}>
+          <Text style={styles.txtst}>일정이 없습니다.</Text>
+        </View>
+      ) : (
+        <ScrollView style={styles.scr}>
+          {scheduleStartData
             .map((startDate, index) => ({
               startDate,
               title: scheduleTitle[index],
@@ -217,10 +219,9 @@ function CalendarView() {
                   style={styles.scheduleText}
                 >{`${schedule.startDate} ~ ${schedule.endDate} : ${schedule.title}`}</Text>
               </View>
-            ))
-        )}
-      </ScrollView>
-
+            ))}
+        </ScrollView>
+      )}
       <Provider store={store}>
         <View>
           <Schedule
@@ -237,9 +238,8 @@ function CalendarView() {
 
 const styles = StyleSheet.create({
   calendar: {
-    marginTop: 0,
-    height: 600,
-    width: 393,
+    marginTop: -10,
+    height: 370,
   },
   arrow: {
     fontSize: 18,
@@ -259,8 +259,13 @@ const styles = StyleSheet.create({
   scheduleText: {
     fontSize: 16,
   },
+  scr: {
+    padding: 30,
+    height: 225,
+    maxHeight: 225,
+  },
   txtcontainer: {
-    flex: 1,
+    height: 225,
     justifyContent: "center",
     alignItems: "center",
   },

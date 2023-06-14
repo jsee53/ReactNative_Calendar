@@ -13,46 +13,54 @@ const Bar = ({ month, year }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.leftContainer}>
-        <TouchableOpacity onPress={handleProfile}>
-          <Image
-            source={require("../favicon/profile.png")}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.selectmonth}>
-          <Text style={styles.label}>
-            {year}년 {month}월
-          </Text>
-        </TouchableOpacity>
+    <View style={styles.parentContainer}>
+      <View style={styles.container}>
+        <View style={styles.leftContainer}>
+          <TouchableOpacity onPress={handleProfile}>
+            <Image
+              source={require("../favicon/profile.png")}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.selectmonth}>
+            <Text style={styles.label}>
+              {year}년 {month}월
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.centerContainer} />
+        <View style={styles.rightContainer}>
+          <TouchableOpacity style={styles.selectmonth}>
+            <Image
+              source={require("../favicon/search.png")}
+              style={styles.icon1}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.selectmonth}>
+            <Image
+              source={require("../favicon/alert.png")}
+              style={styles.icon1}
+            />
+          </TouchableOpacity>
+        </View>
+        {isProfileVisible && (
+          <Provider store={store}>
+            <Profile
+              isProfileVisible={isProfileVisible}
+              handleProfile={handleProfile}
+            />
+          </Provider>
+        )}
       </View>
-      <View style={styles.centerContainer} />
-      <View style={styles.rightContainer}>
-        <TouchableOpacity style={styles.selectmonth}>
-          <Image
-            source={require("../favicon/search.png")}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.selectmonth}>
-          <Image source={require("../favicon/alert.png")} style={styles.icon} />
-        </TouchableOpacity>
-      </View>
-
-      {isProfileVisible && (
-        <Provider store={store}>
-          <Profile
-            isProfileVisible={isProfileVisible}
-            handleProfile={handleProfile}
-          />
-        </Provider>
-      )}
+      <View style={styles.separator} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  parentContainer: {
+    flexDirection: "column",
+  },
   container: {
     flexDirection: "row",
     alignItems: "center",
@@ -74,7 +82,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   label: {
-    fontSize: 16,
+    marginLeft: -3,
+    marginTop: 3,
+    fontSize: 19,
     fontWeight: 500,
   },
   centerContainer: {
@@ -87,11 +97,22 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   icon: {
-    width: 24,
-    height: 24,
+    width: 32,
+    height: 32,
+  },
+  icon1: {
+    width: 26,
+    height: 26,
   },
   text: {
     marginLeft: 8,
+  },
+  separator: {
+    borderBottomColor: "#bbbbbb",
+    borderBottomWidth: 1,
+    width: "100%",
+    marginBottom: 10,
+    alignSelf: "center",
   },
 });
 

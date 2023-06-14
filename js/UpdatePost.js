@@ -5,9 +5,9 @@ import {
   Text,
   StyleSheet,
   TextInput,
+  Image,
 } from "react-native";
 import { Modal } from "react-native";
-import { Image } from "react-native";
 import moment from "moment";
 import { useSelector } from "react-redux";
 
@@ -176,43 +176,56 @@ function UpdatePost({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <TouchableOpacity
-            onPress={() => {
-              showModal();
-              showUpdatePostModal();
-            }}
-          >
-            <Text>X</Text>
-          </TouchableOpacity>
+          <View style={styles.closelocation}>
+            <TouchableOpacity
+              style={styles.close}
+              onPress={() => {
+                showModal();
+                showUpdatePostModal();
+              }}
+            >
+              <Image
+                source={require("../favicon/X.png")}
+                style={[styles.closetxt, { width: 20, height: 20 }]}
+              />
+            </TouchableOpacity>
+          </View>
           {image ? (
             <Image
               source={{ uri: image }}
-              style={{ width: 100, height: 100 }}
+              style={[styles.image, { alignSelf: "center" }]}
             />
           ) : (
-            <Text>등록된 이미지가 없습니다</Text>
+            <View style={styles.empty}>
+              <Text style={styles.imgempty}>이미지가 없는 일정입니다.</Text>
+            </View>
           )}
           <TextInput
-            style={styles.input}
+            style={[styles.input, { marginTop: 15, marginBottom: 3 }]}
             value={postTitle}
             onChangeText={setPostTitle}
           />
           <TextInput
-            style={styles.input}
+            style={[styles.input, { marginBottom: -3 }]}
             value={startDay}
             onChangeText={setStartDay}
           />
           <TextInput
-            style={styles.input}
+            style={[styles.input, { marginBottom: 0 }]}
             value={endDay}
             onChangeText={setEndDay}
           />
-          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>수정</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleDeleteSubmit}>
-            <Text style={styles.buttonText}>삭제</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonlocation}>
+            <TouchableOpacity style={styles.addButton} onPress={handleSubmit}>
+              <Text style={styles.text}>수정</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={handleDeleteSubmit}
+            >
+              <Text style={styles.text}>삭제</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>
@@ -221,30 +234,75 @@ function UpdatePost({
 
 const styles = StyleSheet.create({
   modalContainer: {
-    height: 250,
-    width: 300,
+    height: 600,
+    width: 400,
     justifyContent: "center",
     alignItems: "center",
   },
   modalContent: {
     backgroundColor: "white",
-    width: 300,
-    height: 200,
+    width: 330,
+    height: 580,
     padding: 20,
+    marginTop: 270,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#004898",
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "gray",
-    marginBottom: 10,
-    padding: 5,
+  closelocation: {
+    justifyContent: "flex-start",
+    alignItems: "flex-end",
   },
-  button: {
-    backgroundColor: "lightblue",
-    padding: 10,
+  close: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
     alignItems: "center",
   },
-  buttonText: {
-    fontWeight: "bold",
+  closetxt: {
+    width: 12,
+    height: 12,
+  },
+  input: {
+    width: 230,
+    alignSelf: "center",
+    borderWidth: 1,
+    borderRadius: 5,
+    marginTop: 15,
+    padding: 7,
+  },
+  buttonlocation: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+  },
+  addButton: {
+    width: 77,
+    height: 30,
+    backgroundColor: "#004898",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+    marginTop: 20,
+    marginHorizontal: 10,
+  },
+  text: {
+    color: "white",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  image: {
+    width: 250,
+    height: 300,
+  },
+  empty: {
+    height: 300,
+    justifyContent: "center",
+  },
+  imgempty: {
+    color: "grey",
+    textAlign: "center",
   },
 });
 

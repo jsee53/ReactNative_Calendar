@@ -87,8 +87,13 @@ const Login = ({ successLogin, signup_show }) => {
     <View style={styles.container}>
       <Text style={styles.title}>AuViS</Text>
       <Text style={styles.title1}>쉬운 기록의 시작.</Text>
+      <View style={styles.separator} />
       <TextInput
-        style={[styles.input, isIdInputEmpty ? styles.empty : styles.filled]} // 변경된 코드
+        style={[
+          styles.input,
+          { marginTop: 35 },
+          isIdInputEmpty ? styles.empty : styles.filled,
+        ]} // 변경된 코드
         placeholder="ID"
         onChangeText={handleIdChange}
         value={id}
@@ -125,7 +130,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 370,
+    paddingTop: 374,
   },
   buttonContainer: {
     flex: 5,
@@ -143,7 +148,6 @@ const styles = StyleSheet.create({
   title1: {
     fontSize: 20,
     fontWeight: "400",
-    marginBottom: 25,
     color: "black",
     height: 45,
   },
@@ -177,6 +181,13 @@ const styles = StyleSheet.create({
   },
   filled: {
     color: "black",
+  },
+  separator: {
+    borderBottomColor: "#bbbbbb",
+    borderBottomWidth: 1,
+    width: "80%",
+    marginBottom: 10,
+    alignSelf: "center",
   },
 });
 

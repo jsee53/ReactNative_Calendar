@@ -56,22 +56,27 @@ const Profile = ({ isProfileVisible, handleProfile }) => {
     >
       <View style={styles.container}>
         <Text style={styles.title}>My Page</Text>
+        <View style={styles.separator} />
         <View style={styles.infoContainer}>
           <Text style={styles.label}>ID:</Text>
           <Text style={styles.value}>{userId}</Text>
         </View>
+        <View style={styles.separator} />
         <View style={styles.infoContainer}>
           <Text style={styles.label}>Name:</Text>
           <Text style={styles.value}>{userName}</Text>
         </View>
+        <View style={styles.separator} />
         <View style={styles.infoContainer}>
           <Text style={styles.label}>Birthday:</Text>
           <Text style={styles.value}>{birthDate}</Text>
         </View>
+        <View style={styles.separator} />
         <View style={styles.infoContainer}>
           <Text style={styles.label}>Email:</Text>
           <Text style={styles.value}>{email}</Text>
         </View>
+        <View style={styles.separator} />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
@@ -130,6 +135,13 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 12,
     fontWeight: "600",
+  },
+  separator: {
+    borderBottomColor: "#bbbbbb",
+    borderBottomWidth: 1,
+    width: "80%",
+    marginBottom: 10,
+    alignSelf: "center",
   },
 });
 
