@@ -21,7 +21,7 @@ const BottomBar = ({ refresh }) => {
       let result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
         aspect: [4, 3],
-        quality: 0.7,
+        quality: 0.5,
         base64: true,
       });
 

@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, TouchableOpacity, Text, StyleSheet, Image } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+} from "react-native";
 import { Modal } from "react-native";
 import { format } from "date-fns";
 import ko from "date-fns/locale/ko";
@@ -97,29 +104,41 @@ function Schedule({ isVisible, showModal, selectedDate }) {
           <Text style={styles.day}>
             {format(new Date(selectedDate), "M월 d일 EEEE", { locale: ko })}
           </Text>
-          {scheduleData.length === 0 ? (
-            <Text style={styles.daysch}>일정이 없습니다.</Text>
-          ) : (
-            scheduleData.map((scheduleItem, index) => (
-              <TouchableOpacity
-                style={styles.schedule}
-                key={index}
-                onPress={() => handleTitleClick(scheduleItem.id)}
-              >
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Icon
-                    name="circle"
-                    size={25}
-                    color={scheduleItem.color}
-                    style={{ marginRight: 10 }}
-                  />
-                  <Text style={{ fontSize: 15, fontWeight: 500 }}>
-                    {scheduleItem.title}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            ))
-          )}
+          <View style={{ height: 310 }}>
+            {scheduleData.length === 0 ? (
+              <Text style={styles.daysch}>일정이 없습니다.</Text>
+            ) : (
+              <ScrollView>
+                {scheduleData.map((scheduleItem, index) => (
+                  <TouchableOpacity
+                    style={styles.schedule}
+                    key={index}
+                    onPress={() => handleTitleClick(scheduleItem.id)}
+                  >
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <Icon
+                        name="circle"
+                        size={25}
+                        color={scheduleItem.color}
+                        style={{ marginRight: 10 }}
+                      />
+                      <Text
+                        style={{
+                          fontSize: 15,
+                          fontWeight: 500,
+                          width: 210,
+                        }}
+                      >
+                        {scheduleItem.title}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            )}
+          </View>
           <View style={styles.buttonlocation}>
             <TouchableOpacity
               style={styles.addButton}
