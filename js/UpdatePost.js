@@ -190,7 +190,7 @@ function UpdatePost({
               style={{ width: 100, height: 100 }}
             />
           ) : (
-            <Text>Not Found Image</Text>
+            <Text>등록된 이미지가 없습니다</Text>
           )}
           <TextInput
             style={styles.input}
