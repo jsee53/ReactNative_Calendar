@@ -261,6 +261,7 @@ const styles = StyleSheet.create({
   },
   scr: {
     padding: 30,
+    marginRight: 30,
     height: 225,
     maxHeight: 225,
   },
