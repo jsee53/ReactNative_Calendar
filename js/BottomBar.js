@@ -21,7 +21,7 @@ const BottomBar = ({ refresh }) => {
       let result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
         aspect: [4, 3],
-        quality: 0.5,
+        quality: 0.4,
         base64: true,
       });
 
@@ -46,7 +46,7 @@ const BottomBar = ({ refresh }) => {
       let result = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
         aspect: [4, 3],
-        quality: 0.5,
+        quality: 0.4,
         base64: true,
       });
       if (!result.canceled) {
